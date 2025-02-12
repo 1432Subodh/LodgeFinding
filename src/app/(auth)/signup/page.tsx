@@ -28,7 +28,7 @@ export default function SignUp() {
       password : fromData.get('password'),
     }
 
-    const res = await postReq({URL: '/api/user/auth/signup', data})
+    const res = await postReq({URL: 'https://lodgehazar.netlify.app/api/user/auth/signup', data})
     console.log(res) 
 
     if(res.data.success){

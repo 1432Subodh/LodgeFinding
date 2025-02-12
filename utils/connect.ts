@@ -9,7 +9,7 @@ export async function connect_db() {
             return;
         }
 
-        await mongoose.connect(process.env.MONGODB_URI!);
+        await mongoose.connect(process.env.MONGODB_URI! || 'mongodb+srv://ravidassubodh605:qvJci69J6i36m9kp@cluster0.yg69t.mongodb.net/');
 
         const connection = mongoose.connection;
 
