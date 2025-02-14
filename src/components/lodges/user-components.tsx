@@ -38,7 +38,7 @@ const UserDropdown = () => {
     };
 
     return (
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="flex items-center gap-3">
             {user ? (
                 <>
                     {/* <span className="text-sm capitalize">Hello, {user.firstname}</span> */}
@@ -67,7 +67,7 @@ const UserDropdown = () => {
                 </>
             ) : (
                 <Link href="/login" className=''>
-                    <Button variant="outline" size="sm">Login</Button>
+                    <Button variant="outline" size="sm" className='py-2'>Login</Button>
                 </Link>
             )}
         </div>

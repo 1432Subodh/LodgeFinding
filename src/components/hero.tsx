@@ -50,7 +50,7 @@ export function Hero() {
               transition={{ duration: 0.5 }}
               className="text-3xl sm:text-4xl md:text-5xl text-white font-bold mb-3 sm:mb-5"
             >
-              Find Your Perfect
+              Subodh
               <br />
               Mountain Retreat
             </motion.h1>

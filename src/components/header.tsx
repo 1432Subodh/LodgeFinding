@@ -56,7 +56,7 @@ export function Header() {
         </div>
         <div className="flex items-center gap-4">
           <ThemeToggle />
-          <motion.button
+          {/* <motion.button
             className="relative p-2 hover:text-primary transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
@@ -75,7 +75,7 @@ export function Header() {
             <span className="absolute top-0 right-0 w-4 h-4 bg-primary text-primary-foreground text-xs rounded-full flex items-center justify-center">
               3
             </span>
-          </motion.button>
+          </motion.button> */}
           {/* <div className="hidden sm:flex items-center gap-2">
             <span className="text-sm">Hello, Guest</span>
             <motion.button
@@ -89,8 +89,8 @@ export function Header() {
           <UserDropdown/>
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
-                <Menu className="h-5 w-5" />
+              <Button variant="outline" size="sm" className="md:hidden py-2">
+                <Menu className="h-4 w-4" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
