@@ -129,6 +129,7 @@ import { PageTransition } from "@/components/auth-components/page-transition";
 import { postReq } from "../../../../helper/postReq";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function SignUp() {
   const router = useRouter();
@@ -145,7 +146,8 @@ export default function SignUp() {
     };
 
     await toast.promise(
-      postReq({ URL: "https://lodgehazar.netlify.app/api/user/auth/signup", data }),
+      // postReq({ URL: "https://lodgehazar.netlify.app/api/user/auth/signup", data }),
+      axios.post('/api/user/auth/signup', data),
       {
         loading: "Creating account...",
         success: (res) => {

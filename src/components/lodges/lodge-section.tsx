@@ -162,8 +162,8 @@ export default function LodgeSection() {
             </Sheet>
             <div className="relative w-full flex  gap-2">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
-              <Input type="search" placeholder="Search..." className="pl-9 sm:w-96 pr-4 py-1 text-sm md:text-base" />
-              <Button variant="outline" size="sm" className=" sm:px-0 px-3 mr-3 py-2">
+              <Input type="search" placeholder="Search..." className="pl-9 h-9 sm:w-96 pr-4 py-1 text-sm md:text-base" />
+              <Button variant="outline" size="sm" className=" px-3 mr-3 py-2 ">
                 <Search className="h-4 w-4" />
               </Button>
             </div>
