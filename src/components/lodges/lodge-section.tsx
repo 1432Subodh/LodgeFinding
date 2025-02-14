@@ -19,6 +19,8 @@ import { LodgeCardSkeleton } from "../lodge-card-skeleton"
 import { motion } from "framer-motion"
 import { MobileLodgeCardSkeleton } from "../mobile-lodge-card-skeleton"
 import { MobileLodgeCard } from "../mobile-lodge-card"
+import LodgeImage from "../logo"
+import UserDropdown from "./user-components"
 
 
 interface NavItemProps {
@@ -101,7 +103,7 @@ export default function LodgeSection() {
   const Sidebar = () => (
     <>
       <div className="p-4">
-        <h1 className="text-xl font-bold">Lodge हज़ार</h1>
+        <LodgeImage/>
       </div>
       <nav className="space-y-1 px-2">
         <NavItem href="#" icon={<LayoutGrid className="h-4 w-4" />} active>
@@ -173,15 +175,14 @@ export default function LodgeSection() {
             <Button variant="ghost" size="icon" className="hidden md:inline-flex">
               <Bell className="h-4 w-4" />
             </Button>
-            <div className="h-8 w-8 overflow-hidden rounded-full">
-              <Image
+              {/* <Image
                 src="/placeholder.svg"
                 alt="Avatar"
                 width={32}
                 height={32}
                 className="h-full w-full object-cover"
-              />
-            </div>
+              /> */}
+              <UserDropdown/>
           </div>
         </header>
 

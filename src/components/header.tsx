@@ -8,6 +8,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ThemeToggle } from "./theme-toggle"
 import { Button } from "./ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
+import LodgeImage from "./logo"
+import UserDropdown from "./lodges/user-components"
+import { DialogTitle } from "@radix-ui/react-dialog"
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -32,10 +35,7 @@ export function Header() {
     >
       <div className="flex w-full items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-6 sm:gap-12">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/placeholder.svg" alt="LodgeFinder logo" width={32} height={32} className="text-primary" />
-            <span className="text-xl font-semibold sm:inline-block hidden">LodgeFinder</span>
-          </Link>
+            <LodgeImage/>
           <nav className="hidden md:flex items-center gap-6">
             <AnimatePresence>
               {["Home", "Locations", "Amenities", "Contact"].map((item) => (
@@ -76,7 +76,7 @@ export function Header() {
               3
             </span>
           </motion.button>
-          <div className="hidden sm:flex items-center gap-2">
+          {/* <div className="hidden sm:flex items-center gap-2">
             <span className="text-sm">Hello, Guest</span>
             <motion.button
               className="w-8 h-8 rounded-full bg-muted flex items-center justify-center"
@@ -85,7 +85,8 @@ export function Header() {
             >
               <User className="w-5 h-5" />
             </motion.button>
-          </div>
+          </div> */}
+          <UserDropdown/>
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
@@ -93,6 +94,7 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <DialogTitle></DialogTitle>
               <nav className="flex flex-col gap-4">
                 {["Home", "Locations", "Amenities", "Contact"].map((item) => (
                   <Link key={item} href="#" className="text-lg font-medium hover:text-primary transition-colors">
