@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 
     const token = jwt.sign({
         email : user.email,
-        userId : user._id
+        userId : user._id,
     }, process.env.SCRECT_KEY!,{expiresIn : `${remember=='on' ? '30d': '1d'}`})
 
     const response = NextResponse.json({
