@@ -7,14 +7,17 @@ import { LogOut, User } from "lucide-react";
 import { motion } from "framer-motion";
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface User {
     firstname: string;
+    lastname:string;
     email: string;
 }
 
 const UserDropdown = () => {
     const [user, setUser] = useState<User | null>(null);
+    const router = useRouter()
 
     useEffect(() => {
         // Fetch user data from API
@@ -31,7 +34,7 @@ const UserDropdown = () => {
     const handleLogout = async () => {
         try {
             await axios.get('/api/user/auth/logout'); // Call API to log out
-            setUser(null);
+            router.push('/');
         } catch (error) {
             console.error("Logout failed:", error);
         }
@@ -53,9 +56,11 @@ const UserDropdown = () => {
                             </motion.button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-40">
+                            <Link href={`/user/${user.firstname}-${user.lastname}`}>
                             <DropdownMenuItem className="flex items-center gap-2">
                                 <User size={16} /> My Profile
                             </DropdownMenuItem>
+                            </Link>
                             <DropdownMenuItem
                                 className="flex items-center gap-2 text-red-600 cursor-pointer"
                                 onClick={handleLogout}
