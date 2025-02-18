@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connect_db } from "../../../utils/connect"; 
-import userSchema from "../../../models/UserModel";
 
 connect_db()
 

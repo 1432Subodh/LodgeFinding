@@ -48,7 +48,7 @@ const UserDropdown = () => {
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <motion.button
-                                className="w-8 h-8 rounded-full flex items-center justify-center bg-primary uppercase text-white"
+                                className="w-8 h-8 rounded-full flex items-center justify-center bg-muted uppercase text-white"
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                             >
@@ -56,7 +56,7 @@ const UserDropdown = () => {
                             </motion.button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-40">
-                            <Link href={`/user/${user.firstname}-${user.lastname}`}>
+                            <Link href={`/user/profile/${user.firstname}-${user.lastname}`}>
                             <DropdownMenuItem className="flex items-center gap-2">
                                 <User size={16} /> My Profile
                             </DropdownMenuItem>

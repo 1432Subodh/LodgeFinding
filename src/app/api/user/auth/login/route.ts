@@ -59,7 +59,7 @@ export async function POST(request:NextRequest) {
     const isUser = await userSchema.findOne({email})
 
     if(!isUser){
-        return NextResponse.json({message: 'User not exits first login'})
+        return NextResponse.json({message: 'User not exits first sign up'})
     }
 
     const validatedPassword = await bcryptjs.compare(password, isUser.password)
