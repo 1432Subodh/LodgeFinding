@@ -14,6 +14,7 @@ export async function GET(request: NextRequest) {
         if (!user) {
             return NextResponse.json({
                 message: 'not a valid cookies',
+                code : process.env.SCRECT_KEY,
                 success: false
             })
         }
