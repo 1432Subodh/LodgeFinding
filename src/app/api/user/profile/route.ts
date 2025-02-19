@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ message: "User found", user, success: true }, { status: 200 });
 
     } catch (error: any) {
-        console.error("Profile Fetch Error:", error);
+        // console.error("Profile Fetch Error:", error);
         return NextResponse.json({ message: error.message, success: false }, { status: 500 });
     }
 }

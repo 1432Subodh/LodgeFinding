@@ -21,7 +21,7 @@ const UserDropdown = () => {
                     setUser(res.data.user);
                 }
             })
-            .catch((err) => console.error("Error fetching user:", err))
+            .catch((err) => console.log(err))
             .finally(() => setLoading(false));
     }, []);
 

@@ -24,7 +24,7 @@ export async function extractCookies(request: NextRequest) {
         return decoded.userId; 
 
     } catch (error) {
-        console.error("JWT Verification Error:", error);
+        // console.error("JWT Verification Error:", error);
         return null;
     }
 }
