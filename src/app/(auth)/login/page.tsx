@@ -127,7 +127,6 @@ import { Label } from "@/components/ui/label";
 import { AuthLayout } from "@/components/auth-components/auth-layout";
 import { PageTransition } from "@/components/auth-components/page-transition";
 import toast from "react-hot-toast";
-import { postReq } from "../../../../helper/postReq";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
@@ -152,6 +151,7 @@ export default function SignIn() {
                 loading: "Logging in...",
                 success: (res) => {
                     if (res.data.success) {
+                        console.log(res)
                         router.push("/lodge");
                         e.target.reset();
                         return res.data.message; // Success message from API

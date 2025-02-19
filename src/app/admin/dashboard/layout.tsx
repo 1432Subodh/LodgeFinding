@@ -37,10 +37,11 @@ export default function Layout({ children }: LayoutProps) {
         (async () => {
             const res = await axios.get('/api/user/profile')
             // console.log(res)
-            if (res.data.user.isAdmin === false) {
-                toast.error('Login with Admin Account')
-                route.push('/')
-            }
+            // if (res.data.user.isAdmin === false) {
+            //     toast.error('Login with Admin Account')
+            //     route.push('/')
+            // }
+            localStorage.key(res.data.user)
             setLoading(false)
         })()
     }, [])
@@ -72,7 +73,7 @@ export default function Layout({ children }: LayoutProps) {
                                     </Breadcrumb>
                                 </div>
                             </header>
-                            <div className='p-4 w-full h-full'>
+                            <div className='sm:p-4 w-full h-full dark:bg-black'>
 
 
                                 {children}

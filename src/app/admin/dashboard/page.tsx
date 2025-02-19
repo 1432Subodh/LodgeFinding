@@ -60,18 +60,8 @@ const lodgesData = [
 ];
 
 export default function Page() {
-    const route = useRouter()
-    const [loading, setLoading] = useState(true)
     useEffect(() => {
-        (async () => {
-            const res = await axios.get('/api/user/profile')
-            // console.log(res)
-            if (res.data.user.isAdmin === false) {
-                toast.error('Login with Admin Account')
-                route.push('/')
-            }
-            setLoading(false)
-        })()
+        
     }, [])
     return (
         <>

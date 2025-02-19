@@ -29,11 +29,6 @@ import axios from "axios"
 
 // This is sample data.
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   teams: [
     {
       name: "Acme Inc",
@@ -73,22 +68,18 @@ const data = {
       ],
     },
     {
-      title: "Models",
+      title: "Actions",
       url: "#",
       icon: Bot,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: "New Lodge",
+          url: "/admin/dashboard/add-lodge",
         },
         {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
+          title: "Admin Request",
+          url: "/admin/dashboard/admin-request",
+        }
       ],
     },
     {
@@ -161,12 +152,9 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
-  const [user, setUser] = React.useState<any>(null)
-console.log('asdf')
   React.useEffect(() => {
       (async()=>{
         const res = await axios.get('/api/user/profile')
-        console.log(res + 'asfasdfasd')
       })
   }, [])
   
@@ -180,7 +168,7 @@ console.log('asdf')
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

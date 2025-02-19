@@ -9,14 +9,11 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-interface User {
-    firstname: string;
-    lastname:string;
-    email: string;
-}
+
 
 const UserDropdown = () => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<any>();
+    // console.log(user)
     const router = useRouter()
 
     useEffect(() => {
