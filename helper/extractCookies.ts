@@ -12,7 +12,9 @@ export async function extractCookies(request:NextRequest) {
         }
 
         const decoded:any = jwt.verify(token, process.env.SCRECT_KEY!)
-        return decoded.userId
+        return {userId :decoded.userId,
+            token
+        }
 
 
     } catch (error) {

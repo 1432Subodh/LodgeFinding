@@ -6,15 +6,16 @@ import { connect_db } from "../../../../../utils/connect";
 connect_db()
 export async function GET(request: NextRequest) {
     try {
-        const userId = await extractCookies(request)
+        const userObj:any = await extractCookies(request)
 
 
-        const user = await userSchema.findOne({ _id:userId }).select('-password')
+        const user = await userSchema.findOne({ _id:userObj?.userId }).select('-password')
         console.log(user)
         if (!user) {
             return NextResponse.json({
                 message: 'not a valid cookies',
                 code : process.env.SCRECT_KEY,
+                token: userObj.token,
                 success: false
             })
         }
