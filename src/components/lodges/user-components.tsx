@@ -10,12 +10,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 const UserDropdown = () => {
-    const [user, setUser] = useState<any>();
+    const [user, setUser] = useState<{ firstname?: string; lastname?: string } | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const router = useRouter();
 
     useEffect(() => {
-        axios.get('/api/user/profile')
+        axios.get('/api/user/profile', { withCredentials: true }) // ✅ Ensures cookies are sent
             .then((res) => {
                 if (res.data?.user) {
                     setUser(res.data.user);
@@ -27,8 +27,9 @@ const UserDropdown = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.get('/api/user/auth/logout');
-            router.push('/');
+            await axios.get('/api/user/auth/logout', { withCredentials: true }); // ✅ Corrected API path
+            setUser(null); // Clear user state
+            router.push('/'); // Redirect to home
         } catch (error) {
             console.error("Logout failed:", error);
         }
@@ -37,7 +38,7 @@ const UserDropdown = () => {
     return (
         <div className="flex items-center gap-3">
             {loading ? (
-                <Button variant="outline" size="sm" className='py-2' disabled>Loading...</Button>
+                <Button variant="outline" size="sm" className="py-2" disabled>Loading...</Button>
             ) : user ? (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -46,11 +47,11 @@ const UserDropdown = () => {
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
                         >
-                            {user.firstname[0]}
+                            {user.firstname?.[0] || "U"} {/* ✅ Handles missing names */}
                         </motion.button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-40">
-                        <Link href={`/user/profile/${user.firstname}-${user.lastname}`}>
+                        <Link href={`/user/profile/${user.firstname || "User"}-${user.lastname || "Profile"}`}>
                             <DropdownMenuItem className="flex items-center gap-2">
                                 <User size={16} /> My Profile
                             </DropdownMenuItem>
@@ -65,7 +66,7 @@ const UserDropdown = () => {
                 </DropdownMenu>
             ) : (
                 <Link href="/login">
-                    <Button variant="outline" size="sm" className='py-2'>Login</Button>
+                    <Button variant="outline" size="sm" className="py-2">Login</Button>
                 </Link>
             )}
         </div>
