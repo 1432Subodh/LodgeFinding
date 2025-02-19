@@ -14,6 +14,7 @@ export async function extractCookies(request:NextRequest) {
         const decoded:any = jwt.verify(token, process.env.SCRECT_KEY!)
         return decoded.userId
 
+
     } catch (error) {
         console.log(error)
     }
