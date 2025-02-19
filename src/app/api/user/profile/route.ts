@@ -8,7 +8,9 @@ export async function GET(request: NextRequest) {
     try {
         const userId = await extractCookies(request)
 
+
         const user = await userSchema.findOne({ _id:userId }).select('-password')
+        console.log(user)
         if (!user) {
             return NextResponse.json({
                 message: 'not a valid cookies',

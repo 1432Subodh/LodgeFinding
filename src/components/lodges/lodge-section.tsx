@@ -20,7 +20,7 @@ import { motion } from "framer-motion"
 import { MobileLodgeCardSkeleton } from "../mobile-lodge-card-skeleton"
 import { MobileLodgeCard } from "../mobile-lodge-card"
 import LodgeImage from "../logo"
-import UserDropdown from "./user-components"
+// import UserDropdown from "./user-components"
 
 
 interface NavItemProps {
@@ -182,7 +182,7 @@ export default function LodgeSection() {
                 height={32}
                 className="h-full w-full object-cover"
               /> */}
-              <UserDropdown/>
+              {/* <UserDropdown/> */}
           </div>
         </header>
 
