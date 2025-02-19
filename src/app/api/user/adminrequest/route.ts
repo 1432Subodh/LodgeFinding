@@ -4,17 +4,22 @@ import userSchema from "../../../../../models/UserModel";
 
 connect_db()
 
-async function POST (request: NextRequest){
+export async function GET (request: NextRequest){
 
 
-    const users = userSchema.find({adminRequest: true})
-    if(!users){
+    const users = await userSchema.find({adminRequest: false})
+
+
+    
+    if(users.length === 0){
         return NextResponse.json({
             message: 'admin request not found'
         })
     }
 
     return NextResponse.json({
-        message: 'admin request found'
+        message: 'admin request found',
+        users
+        // users
     })
 }

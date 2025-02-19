@@ -39,19 +39,7 @@ function page() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell className="font-medium truncate sm:inline-block hidden">INV001</TableCell>
-            <TableCell className="truncate w-[200px]">subodh</TableCell>
-            <TableCell className="truncate w-[200px] ">Credit</TableCell>
-            <TableCell className="text-right truncate ">
-              <div className="flex justify-end gap-3">
-                <div className="p-2 transition-all rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 text-red-700 hover:text-red-800 text-sm ">
-                  <X />
-                </div>
-                <button className="p-2 transition-all rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 text-green-700 hover:text-green-800 text-sm"><Check /></button>
-              </div>
-            </TableCell>
-          </TableRow>
+
           <TableRow>
             <TableCell className="font-medium truncate sm:inline-block hidden">INV001</TableCell>
             <TableCell className="truncate w-[200px]">subodh14329@gmail.com</TableCell>
@@ -61,10 +49,10 @@ function page() {
                 <div>
                   <AlertDialog>
                     <AlertDialogTrigger>
-                      <button className="p-2 transition-all rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 text-red-700 hover:text-red-800 text-sm ">
+                      <p className="p-2 transition-all rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 text-red-700 hover:text-red-800 text-sm ">
                         <X />
 
-                      </button>
+                      </p>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
@@ -80,8 +68,25 @@ function page() {
                     </AlertDialogContent>
                   </AlertDialog>
                 </div>
-
-                <button className="p-2 transition-all rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 text-green-700 hover:text-green-800 text-sm"><Check /></button>
+                <div>
+                  <AlertDialog>
+                    <AlertDialogTrigger>
+                      <p className="p-2 transition-all rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 text-green-700 hover:text-green-800 text-sm"><Check /></p>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          You want to Accept the Admin request
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction>Continue</AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
               </div>
             </TableCell>
           </TableRow>
