@@ -8,11 +8,14 @@ export async function GET(request: NextRequest) {
         await connect_db(); // Ensure DB is connected ✅
 
         const userId = await extractCookies(request);
+        if(userId === null){
+            console.log('null')
+        }
         if (!userId) {
             return NextResponse.json({ message: "Invalid or expired token", success: false }, { status: 401 });
         }
 
-        const user = await userSchema.findById(userId).select("-password");
+        const user = await userSchema.findOne({_id: userId}).select("-password");
 
         if (!user) {
             return NextResponse.json({ message: "User not found", success: false }, { status: 404 });

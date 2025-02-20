@@ -17,6 +17,7 @@ const UserDropdown = () => {
     useEffect(() => {
         axios.get('/api/user/profile', { withCredentials: true }) // ✅ Ensures cookies are sent
             .then((res) => {
+                // if(res.data.)
                 if (res.data?.user) {
                     setUser(res.data.user);
                 }
