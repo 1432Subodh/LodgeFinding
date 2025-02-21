@@ -1,22 +1,8 @@
-'use client'
 import AddLodgeForm from '@/components/lodges/form/AddLodgeForm'
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import UserData from '@/components/user/user-data'
 
  function page() {
-    const [user, setUser] = useState<any>(null)
-    
-    useEffect(() => {
-        (async ()=>{
 
-            const res = await axios.get('/api/user/profile')
-            console.log(res)
-            setUser(res.data.user)
-            
-           
-        })()
-    }, [])
     // console.log(user?.firstname)
     
     
@@ -25,9 +11,8 @@ import React, { useEffect, useState } from 'react'
 
   return (
     <>
-    <div>{user?.firstname} {user?.lastname}</div>
-    <p>{user?.email}</p>
-    <AddLodgeForm/>
+    <UserData/>
+    {/* <AddLodgeForm/> */}
     </>
     // <p>a</p>
   )

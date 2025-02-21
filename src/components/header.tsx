@@ -11,6 +11,7 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import LodgeImage from "./logo"
 // import UserDropdown from "./lodges/user-components"
 import { DialogTitle } from "@radix-ui/react-dialog"
+import UserData from "./user/user-data"
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -86,7 +87,8 @@ export function Header() {
               <User className="w-5 h-5" />
             </motion.button>
           </div> */}
-          {/* <UserDropdown/> */}
+          
+          <UserData/>
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="sm" className="md:hidden py-2">

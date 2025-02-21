@@ -12,8 +12,6 @@ export async function GET(request: NextRequest){
         
         const cookies:any = request.cookies.get('token')?.value
         
-        console.log(cookies)
-
         const decoded:any = jwt.verify(cookies, process.env.JWT_KEY!)
 
         const user = await userSchema.findById(decoded._id)
