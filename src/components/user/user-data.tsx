@@ -6,23 +6,32 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { LogOut, Settings, User } from "lucide-react";
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Api_logout, extractUser } from '../../../helper/helper';
 
 function UserData() {
     const [user, setUser] = useState<any>(null)
     const [isLogin, setIsLogin] = useState(true)
+    const router = useRouter()
 
     useEffect(() => {
-        axios.get('/api/user/auth/extractcookies').then((res) => {
+        axios.get(extractUser).then((res) => {
 
             console.log(res)
             if (res.data.user) {
-
                 setUser(res.data.user)
-
                 setIsLogin(false)
             }
         })
     }, [])
+
+
+    const logout = ()=>{
+        axios.get(Api_logout).then((res)=>{
+            setIsLogin(true)
+            router.push('/')
+        })
+    }
 
     return (
         <>
@@ -49,7 +58,7 @@ function UserData() {
                                 <Settings className="mr-2 h-4 w-4" /> Settings
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem className="text-red-500">
+                            <DropdownMenuItem className="text-red-500" onClick={logout}>
                                 <LogOut className="mr-2 h-4 w-4" /> Logout
                             </DropdownMenuItem>
                         </DropdownMenuContent>

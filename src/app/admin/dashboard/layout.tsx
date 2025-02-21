@@ -35,7 +35,7 @@ export default function Layout({ children }: LayoutProps) {
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         (async () => {
-            const res = await axios.get('/api/user/profile')
+            const res = await axios.get('/api/user/auth/extractcookies')
             console.log(res)
             if (res.data.user.isAdmin === false) {
                 toast.error('Login with Admin Account')

@@ -32,6 +32,7 @@ import {
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { parse } from "path"
+import { extractUser } from "../../../helper/helper"
 
 export function NavUser() {
   const { isMobile } = useSidebar()
@@ -41,7 +42,7 @@ export function NavUser() {
   useEffect(() => {
     
     (async()=>{
-      await axios.get('/api/user/profile').then((res)=>{
+      await axios.get(extractUser).then((res)=>{
         console.log(res)
         setUser(res.data.user)
     })

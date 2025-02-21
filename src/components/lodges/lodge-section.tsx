@@ -20,6 +20,7 @@ import { motion } from "framer-motion"
 import { MobileLodgeCardSkeleton } from "../mobile-lodge-card-skeleton"
 import { MobileLodgeCard } from "../mobile-lodge-card"
 import LodgeImage from "../logo"
+import UserData from "../user/user-data"
 // import UserDropdown from "./user-components"
 
 
@@ -182,7 +183,7 @@ export default function LodgeSection() {
                 height={32}
                 className="h-full w-full object-cover"
               /> */}
-              {/* <UserDropdown/> */}
+              <UserData/>
           </div>
         </header>
 

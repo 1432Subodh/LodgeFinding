@@ -126,10 +126,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AuthLayout } from "@/components/auth-components/auth-layout";
 import { PageTransition } from "@/components/auth-components/page-transition";
-import { postReq } from "../../../../helper/postReq";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { Api_signup } from "../../../../helper/helper";
 
 export default function SignUp() {
   const router = useRouter();
@@ -147,7 +147,7 @@ export default function SignUp() {
 
     await toast.promise(
       // postReq({ URL: "https://lodgehazar.netlify.app/api/user/auth/signup", data }),
-      axios.post('/api/user/auth/signup', data),
+      axios.post(Api_signup, data),
       {
         loading: "Creating account...",
         success: (res) => {

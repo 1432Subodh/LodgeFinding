@@ -129,6 +129,7 @@ import { PageTransition } from "@/components/auth-components/page-transition";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { Api_login } from "../../../../helper/helper";
 
 export default function SignIn() {
     const router = useRouter();
@@ -146,7 +147,7 @@ export default function SignIn() {
 
         // Show a promise toast while the login request is in progress
         await toast.promise(
-            axios.post('/api/user/auth/login', data),
+            axios.post(Api_login, data),
             // postReq({ URL: "/api/user/auth/login", data }),
             {
                 loading: "Logging in...",
