@@ -4,11 +4,11 @@ import userSchema from "../../../../../../models/UserModel";
 
 import { connect_db } from "../../../../../../utils/connect";
 
-await connect_db()
 
 
- export async function GET(request: NextRequest){
+export async function GET(request: NextRequest){
     try {
+        await connect_db()
         
         const cookies:any = request.cookies.get('token')?.value
         
