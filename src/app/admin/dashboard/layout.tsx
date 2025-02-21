@@ -18,10 +18,12 @@ import {
     SidebarTrigger,
 } from "@/components/ui/sidebar"
 import axios from 'axios'
-import { Fascinate } from 'next/font/google'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { extractUser } from '../../../../helper/helper';
+import Cookies from 'js-cookie';
+
 
 
 
@@ -33,17 +35,27 @@ export default function Layout({ children }: LayoutProps) {
 
     const route = useRouter()
     const [loading, setLoading] = useState(true)
+    const token = Cookies.get('token');
+    console.log(token)
+
     useEffect(() => {
-        (async () => {
-            const res = await axios.get('/api/user/auth/extractcookies')
-            console.log(res)
-            if (res.data.user.isAdmin === false) {
-                toast.error('Login with Admin Account')
-                route.push('/')
-            }
-            localStorage.key(res.data.user)
-            setLoading(false)
-        })()
+
+        if (!token) {
+            console.log('invalid token');
+
+        } else {
+
+            axios.post(extractUser, { token }).then((res) => {
+
+                console.log(res)
+                if (res.data.user.isAdmin === false) {
+                    toast.error('Login with Admin Account')
+                    route.push('/')
+                }
+                localStorage.key(res.data.user)
+                setLoading(false)
+            })
+        }
     }, [])
     return (
         <>

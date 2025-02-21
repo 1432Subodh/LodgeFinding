@@ -31,18 +31,21 @@ import {
 } from "@/components/ui/sidebar"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { parse } from "path"
 import { extractUser } from "../../../helper/helper"
+import Cookies from 'js-cookie';
+
 
 export function NavUser() {
   const { isMobile } = useSidebar()
 
   const [user, setUser] = useState<any>(null)
+  const token = Cookies.get('token');
+
 
   useEffect(() => {
     
     (async()=>{
-      await axios.get(extractUser).then((res)=>{
+      await axios.post(extractUser, {token}).then((res)=>{
         console.log(res)
         setUser(res.data.user)
     })
