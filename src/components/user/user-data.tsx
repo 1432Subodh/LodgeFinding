@@ -39,7 +39,7 @@ function UserData() {
                                 </Avatar>
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-48">
+                        <DropdownMenuContent align="center" className="w-48 relative right-4">
                             <DropdownMenuLabel className="font-bold">My Account</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>
