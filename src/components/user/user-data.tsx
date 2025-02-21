@@ -8,26 +8,35 @@ import { LogOut, Settings, User } from "lucide-react";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Api_logout, extractUser } from '../../../helper/helper';
+import Cookies from 'js-cookie';
 
 function UserData() {
     const [user, setUser] = useState<any>(null)
     const [isLogin, setIsLogin] = useState(true)
     const router = useRouter()
 
+    const token = Cookies.get('token');
     useEffect(() => {
-        axios.get(extractUser).then((res) => {
 
-            console.log(res)
-            if (res.data.user) {
-                setUser(res.data.user)
-                setIsLogin(false)
-            }
-        })
+        if (!token) {
+            console.log('invalid token');
+
+        } else {
+
+            axios.post(extractUser, { token }).then((res) => {
+
+                console.log(res)
+                if (res.data.user) {
+                    setUser(res.data.user)
+                    setIsLogin(false)
+                }
+            })
+        }
     }, [])
 
 
-    const logout = ()=>{
-        axios.get(Api_logout).then((res)=>{
+    const logout = () => {
+        axios.get(Api_logout).then((res) => {
             setIsLogin(true)
             router.push('/')
         })
