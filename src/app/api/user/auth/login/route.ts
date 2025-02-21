@@ -1,88 +1,57 @@
-// import { NextRequest, NextResponse } from "next/server";
-// import userSchema from "../../../../../../models/UserModel";
+import { NextRequest, NextResponse } from "next/server";
+import userSchema from "../../../../../../models/UserModel";
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
-import { NextRequest, NextResponse } from "next/server";
-import userSchema from "../../../../../../models/UserModel";
-import { connect_db } from '../../../../../../utils/connect';
+
+export async function POST(request: NextRequest) {
+    try {
+        const reqBody = await request.json()
+        const { email, password, remeber } = reqBody
+
+        const user = await userSchema.findOne({ email })
+
+        if (!user) {
+            return NextResponse.json({
+                message: 'user not exist',
+                success: false
+            })
+        }
+
+        const passwordValidation = await bcryptjs.compare(password, user.password)
+
+        if (!passwordValidation) {
+            return NextResponse.json({
+                message: 'invaild password'
+            })
+        }
+
+        const token = jwt.sign({
+            _id: user._id,
+        }, process.env.JWT_KEY!, { expiresIn: remeber==='on' ? '30d' : '1d' })
 
 
-// export async function POST(request: NextRequest) {
-//     const reqBody = await request.json()
+        const response = NextResponse.json({
+            message: 'login successfull',
+            success: true,
+            user
+        })
 
-//     const { password, email, remember } = reqBody
+        // const decoded = jwt.verify(token, process.env.JWT_KEY!)
+        // console.log(decoded)
 
-//     const user = await userSchema.findOne({ email })
-
-//     if (!user) {
-//         return NextResponse.json({
-//             message: "user not found",
-//             success: false
-
-//         },{status:202})
-//     }
-//     const validation = await bcryptjs.compare(password,user.password)
-//     if(!validation){
-//         return NextResponse.json({
-//             message: "Incorrect Password",
-//             success: false
-//         })
-//     }
+        response.cookies.set('token', token)
+        return response
 
 
-//     const token = jwt.sign({
-//         email : user.email,
-//         userId : user._id,
-//     }, process.env.SCRECT_KEY!,{expiresIn : `${remember=='on' ? '30d': '1d'}`})
-
-//     const response = NextResponse.json({
-//         message: 'login successfull',
-//         success: true
-//     },{status:200})
-
-//     response.cookies.set('token', token,{
-//         httpOnly: true,
-//     })
-//     return response
 
 
-    
-// }
 
-connect_db()
-
-export async function POST(request:NextRequest) {
-    const reqBody = await request.json()
-    const{email, password, remember} = reqBody;
-
-    const isUser = await userSchema.findOne({email})
-
-    if(!isUser){
-        return NextResponse.json({message: 'User not exits first sign up'})
+    } catch (error: any) {
+        return NextResponse.json({
+            message: error.message
+        })
     }
 
-    const validatedPassword = await bcryptjs.compare(password, isUser.password)
-
-    if(!validatedPassword){
-        return NextResponse.json({message: 'Invalid Password'})
-    }
-
-
-    const token = jwt.sign({
-        userId : isUser._id,
-        email: isUser.email,
-    }, process.env.SECRET_KEY!)
-
-
-    const response = NextResponse.json({
-        message: 'Login Successfull',
-        isUser,
-        success: true
-    },{status: 200})
-    
-    response.cookies.set('token', token)
-
-    return response
 
 }

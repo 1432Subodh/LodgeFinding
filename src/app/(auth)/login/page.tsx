@@ -142,6 +142,7 @@ export default function SignIn() {
             password: formData.get("password"),
             remember: formData.get("remember"),
         };
+        console.log(data)
 
         // Show a promise toast while the login request is in progress
         await toast.promise(

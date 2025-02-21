@@ -9,7 +9,7 @@ import { ThemeToggle } from "./theme-toggle"
 import { Button } from "./ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import LodgeImage from "./logo"
-import UserDropdown from "./lodges/user-components"
+// import UserDropdown from "./lodges/user-components"
 import { DialogTitle } from "@radix-ui/react-dialog"
 
 export function Header() {
@@ -86,7 +86,7 @@ export function Header() {
               <User className="w-5 h-5" />
             </motion.button>
           </div> */}
-          <UserDropdown/>
+          {/* <UserDropdown/> */}
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="sm" className="md:hidden py-2">

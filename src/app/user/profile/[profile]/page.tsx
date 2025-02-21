@@ -1,6 +1,5 @@
 'use client'
 import AddLodgeForm from '@/components/lodges/form/AddLodgeForm'
-import UserDropdown from '@/components/lodges/user-components'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -28,7 +27,6 @@ import React, { useEffect, useState } from 'react'
     <>
     <div>{user?.firstname} {user?.lastname}</div>
     <p>{user?.email}</p>
-    <UserDropdown/>
     <AddLodgeForm/>
     </>
     // <p>a</p>
