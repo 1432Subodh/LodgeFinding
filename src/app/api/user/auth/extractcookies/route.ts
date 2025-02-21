@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import userSchema from "../../../../../../models/UserModel";
 
+import { connect_db } from "../../../../../../utils/connect";
+
+await connect_db()
+
 
  export async function GET(request: NextRequest){
     try {
