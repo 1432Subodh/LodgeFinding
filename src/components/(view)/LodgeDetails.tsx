@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
-export default function LodgeDetails() {
+export default function LodgeDetails({ lodgeName, roomPrice, place, state, pincode, city, owner, maplink, description, lodgeType }: any) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -19,17 +19,21 @@ export default function LodgeDetails() {
             <MapPin className="mr-1 h-3 w-3" />
             Mountain View
           </Badge>
-          <Badge variant="secondary">
-            <Users className="mr-1 h-3 w-3" />4 Guests
+          <Badge variant="secondary" className="capitalize">
+            <Users className="mr-1 h-3 w-3 " />{lodgeType}
           </Badge>
         </div>
+
+        {/* Lodge Type displayed before the lodge name */}
+        
+
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="text-3xl font-bold"
+          className="text-3xl font-bold capitalize"
         >
-          Cozy Mountain Lodge
+          {lodgeName}
         </motion.h1>
         <div className="flex items-center gap-2">
           {[...Array(5)].map((_, i) => (
@@ -52,7 +56,7 @@ export default function LodgeDetails() {
         transition={{ delay: 0.6, duration: 0.5 }}
         className="space-y-2"
       >
-        <div className="text-3xl font-bold">$199/night</div>
+        <div className="text-3xl font-bold">₹{roomPrice}/month</div>
         <p className="text-sm text-muted-foreground">Includes all taxes and fees</p>
       </motion.div>
 
@@ -64,8 +68,7 @@ export default function LodgeDetails() {
       >
         <div className="prose max-w-none">
           <p className="text-muted-foreground">
-            Experience the perfect mountain getaway in this charming lodge. Featuring stunning views, modern amenities,
-            and a cozy fireplace. Perfect for families or small groups looking for a peaceful retreat.
+            {description}
           </p>
         </div>
 
@@ -76,10 +79,10 @@ export default function LodgeDetails() {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.8, duration: 0.5 }}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 capitalize"
             >
               <MapPin className="h-4 w-4" />
-              <span>123 Mountain View Road, Pine Valley, CO 80517</span>
+              <span>{place}, {city}, {state}, {pincode}</span>
             </motion.li>
             <motion.li
               initial={{ opacity: 0, x: -10 }}
@@ -88,7 +91,7 @@ export default function LodgeDetails() {
               className="flex items-center gap-2"
             >
               <User className="h-4 w-4" />
-              <span>Owned by John & Sarah Mountain</span>
+              <span>Owned by {owner.name}</span>
             </motion.li>
             <motion.li
               initial={{ opacity: 0, x: -10 }}
@@ -97,7 +100,9 @@ export default function LodgeDetails() {
               className="flex items-center gap-2"
             >
               <Phone className="h-4 w-4" />
-              <span>+1 (555) 123-4567</span>
+              <a href={`tel:+91${owner.contact}`} className="text-primary hover:underline">
+                +91 {owner.contact}
+              </a>
             </motion.li>
             <motion.li
               initial={{ opacity: 0, x: -10 }}
@@ -107,7 +112,7 @@ export default function LodgeDetails() {
             >
               <Map className="h-4 w-4" />
               <a
-                href="https://goo.gl/maps/example"
+                href={maplink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
@@ -167,4 +172,3 @@ export default function LodgeDetails() {
     </motion.div>
   )
 }
-

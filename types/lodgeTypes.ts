@@ -4,6 +4,7 @@ export interface LodgeFormData {
   city: string
   state: string
   pincode: number
+  maplink: string
   coordinates: {
     lat: number
     lng: number
@@ -22,8 +23,11 @@ export interface LodgeFormData {
     email: string
   }
   availableRooms: number
-  images: string[]
+  lodgeType: string
+  images: []
+  imageAddress:[]
   description: string
+  base64Images:any
 }
 
 export const defaultValues: LodgeFormData = {
@@ -32,6 +36,7 @@ export const defaultValues: LodgeFormData = {
   city: "Hazaribagh",
   state: "Jharkhand",
   pincode: 825312,
+  maplink: "",
   coordinates: { lat: 0, lng: 0 },
   roomPrice: 0,
   facilities: {
@@ -47,7 +52,11 @@ export const defaultValues: LodgeFormData = {
     email: "",
   },
   availableRooms: 0,
-  images: [],
+  imageAddress : [],
+  images: [], // ✅ Now explicitly an empty array of `File`
   description: "",
-}
+  base64Images:[],
+  lodgeType: "",
+};
+
 

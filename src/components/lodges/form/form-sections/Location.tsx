@@ -68,6 +68,19 @@ export default function Location({ control }: LocationProps) {
             </FormItem>
           )}
         />
+        <FormField
+          control={control}
+          name="maplink"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Google Map Link</FormLabel>
+              <FormControl>
+                <Input placeholder="Google Map Link" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </div>
     </motion.div>
   )

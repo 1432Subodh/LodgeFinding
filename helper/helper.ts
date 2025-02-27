@@ -4,3 +4,7 @@ export const Api_signup ='/api/user/auth/signup' //POST
 export const Api_login ='/api/user/auth/login' //POST
 export const Api_getAdminReq ='/api/user/adminrequest' //GET
 export const Api_actionAdminReq ='/api/user/adminrequest' //POST
+export const Api_addingLodge = '/api/lodge/adding' //POST
+export const Api_getAllLodge = '/api/lodge/get' //GET
+export const Api_getLodge = '/api/lodge/get' //POST
+export const Api_Search = '/api/lodge/search' //POST

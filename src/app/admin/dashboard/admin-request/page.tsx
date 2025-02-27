@@ -41,8 +41,8 @@ function page() {
   }, [])
 
 
-  const actionRequest = async(_id:any, type:any)=>{
-    const res = await axios.post(Api_actionAdminReq,{_id, type})
+  const actionRequest = async (_id: any, type: any) => {
+    const res = await axios.post(Api_actionAdminReq, { _id, type })
     console.log(res)
   }
 
@@ -61,63 +61,68 @@ function page() {
           </TableRow>
         </TableHeader>
         <TableBody>
-
-          
-          {
-            userReq.map((ele:any, index:any) =>
+          {!userReq ? (
+            <TableRow>
+              <TableCell colSpan={4} className="text-center">
+                No data available
+              </TableCell>
+            </TableRow>
+          ) : (
+            userReq.map((ele: any, index: any) => (
               <TableRow key={index}>
                 <TableCell className="font-medium truncate sm:inline-block hidden pt-7">{ele._id}</TableCell>
                 <TableCell className="truncate w-[200px]">{ele.email}</TableCell>
-                <TableCell className="truncate w-[200px] ">Request</TableCell>
+                <TableCell className="truncate w-[200px]">Request</TableCell>
                 <TableCell className="text-right truncate ">
                   <div className="flex justify-end gap-3">
-                    <div>
-                      <AlertDialog>
-                        <AlertDialogTrigger>
-                          <p className="p-2 transition-all rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 text-red-700 hover:text-red-800 text-sm ">
-                            <X />
+                    <AlertDialog>
+                      <AlertDialogTrigger>
+                        <p className="p-2 transition-all rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 text-red-700 hover:text-red-800 text-sm ">
+                          <X />
+                        </p>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            You want to cancel the Admin request
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={() => actionRequest(ele._id, "REJECT")}>
+                            Continue
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
 
-                          </p>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                              You want to cancel the Admin request
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={()=>actionRequest(ele._id, "REJECT")}>Continue</AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
-                    </div>
-                    <div>
-                      <AlertDialog>
-                        <AlertDialogTrigger>
-                          <p className="p-2 transition-all rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 text-green-700 hover:text-green-800 text-sm"><Check /></p>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                              You want to Accept the Admin request
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={()=>actionRequest(ele._id, "ACCEPT")}>Continue</AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
-                    </div>
+                    <AlertDialog>
+                      <AlertDialogTrigger>
+                        <p className="p-2 transition-all rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 text-green-700 hover:text-green-800 text-sm">
+                          <Check />
+                        </p>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            You want to Accept the Admin request
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={() => actionRequest(ele._id, "ACCEPT")}>
+                            Continue
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </TableCell>
               </TableRow>
-            )
-          }
-
+            ))
+          )}
         </TableBody>
       </Table>
 

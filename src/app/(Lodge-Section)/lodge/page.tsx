@@ -1,11 +1,11 @@
 import LodgeSection from '@/components/lodges/lodge-section'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 function page() {
   return (
-    <>
-      <LodgeSection/>
-    </>
+    <Suspense fallback={<div>Loading...</div>}>
+    <LodgeSection />
+  </Suspense>
   )
 }
 

@@ -7,6 +7,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 // import type { LodgeFormData } from "@/types/lodgeTypes"
 import { itemVariants } from "../../../../../lib/animations"
 import { LodgeFormData } from "../../../../../types/lodgeTypes"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface BasicInformationProps {
   control: Control<LodgeFormData>
@@ -48,6 +49,28 @@ export default function BasicInformation({ control }: BasicInformationProps) {
             </FormItem>
           )}
         />
+        <FormField
+          control={control}
+          name="lodgeType"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Lodge Type</FormLabel>
+              <FormControl>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Lodge Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="boys">Boys</SelectItem>
+                    <SelectItem value="girls">Girls</SelectItem>
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
       </div>
     </motion.div>
   )

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect as ReactuseEffect } from "react"
+import { useState, useEffect as ReactuseEffect, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -8,19 +8,19 @@ import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
 import { cn } from "@/lib/utils"
 import { Bell, Grid, LayoutGrid, Menu, Search } from "lucide-react"
-import Image from "next/image"
 import Link from "next/link"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import type React from "react"
 // import LodgeCard from "./lodge-card"
-import { LodgeCard } from "../lodge-card"
+import { LodgeCard, LodgeCardSkeleton } from "../lodge-card"
 import { ThemeToggle } from "../theme-toggle"
-import { LodgeCardSkeleton } from "../lodge-card-skeleton"
+// import { LodgeCardSkeleton } from "../lodge-card-skeleton"
 import { motion } from "framer-motion"
-import { MobileLodgeCardSkeleton } from "../mobile-lodge-card-skeleton"
-import { MobileLodgeCard } from "../mobile-lodge-card"
 import LodgeImage from "../logo"
 import UserData from "../user/user-data"
+import axios from "axios"
+import { Api_getAllLodge, Api_Search } from "../../../helper/helper"
+import { useParams, useRouter, useSearchParams } from "next/navigation"
 // import UserDropdown from "./user-components"
 
 
@@ -43,68 +43,56 @@ function NavItem({ href, icon, children, active }: NavItemProps) {
   )
 }
 
-// function FolderItem({ href, children }: { href: string; children: React.ReactNode }) {
-//   return (
-//     <Link href={href} className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50">
-//       <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//         <path
-//           strokeLinecap="round"
-//           strokeLinejoin="round"
-//           strokeWidth={2}
-//           d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-//         />
-//       </svg>
-//       <span>{children}</span>
-//     </Link>
-//   )
-// }
-
-// function LodgeCard({
-//   name,
-//   location,
-//   price,
-//   rating,
-//   thumbnail,
-// }: { name: string; location: string; price: number; rating: number; thumbnail: string }) {
-//   return (
-//     <div className="group relative overflow-hidden rounded-lg border  ">
-//       <div className="aspect-[4/3] overflow-hidden">
-//         <Image
-//           src={thumbnail || "/placeholder.svg"}
-//           alt={name}
-//           width={400}
-//           height={300}
-//           className="h-full w-full object-cover transition-transform group-hover:scale-105"
-//         />
-//       </div>
-//       <div className="p-4">
-//         <h3 className="font-medium text-gray-900">{name}</h3>
-//         <p className="text-sm text-gray-500">{location}</p>
-//         <div className="mt-2 flex items-center justify-between">
-//           <span className="text-lg font-bold">${price}/night</span>
-//           <span className="text-sm text-yellow-500">★ {rating.toFixed(1)}</span>
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
 
 
 export default function LodgeSection() {
   const [isLoading, setIsLoading] = useState(true)
   const [priceRange, setPriceRange] = useState([50, 500])
   const [popularOnly, setPopularOnly] = useState(false)
+const [lodge, setLodge] = useState<any[]>([])
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
 
   // Simulate loading
-  ReactuseEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000)
-    return () => clearTimeout(timer)
-  }, [])
+  useEffect(() => {
+    const fetchLodges = async () => {
+      try {
+        setIsLoading(true);
+        const search = searchParams.get("search");
+  
+        let response;
+        if (!search) {
+          console.log("Fetching all lodges...");
+          response = await axios.get(Api_getAllLodge);
+          if (response.data.lodges) {
+            setLodge(response.data.lodges);
+          }
+        } else {
+          console.log("Searching lodges...");
+          response = await axios.post(Api_Search, { search });
+          if (response.data.results) {
+            setLodge(response.data.results);
+          }
+        }
+  
+        console.log("Lodge data updated:", response?.data?.lodges || response?.data?.results);
+      } catch (error) {
+        console.error("Error fetching lodges:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  
+    fetchLodges();
+  }, [searchParams]); // Depend on `searchParams` so it triggers correctly
+  
+
 
   const Sidebar = () => (
     <>
       <div className="p-4">
-        <LodgeImage/>
+        <LodgeImage />
       </div>
       <nav className="space-y-1 px-2">
         <NavItem href="#" icon={<LayoutGrid className="h-4 w-4" />} active>
@@ -139,6 +127,30 @@ export default function LodgeSection() {
     </>
   )
 
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    // Debugging: Log all form values
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+
+    const data = formData.get("search");
+
+    if (!data) {
+      alert("Search field is empty!");
+      return;
+    }
+
+    console.log("Redirecting to:", `/lodge?search=${data}`);
+    router.push(`/lodge?search=${data}`)
+    // window.location.href = `/lodge?search=${data}`;
+  };
+
+
   return (
     <div className="flex h-screen  ">
       {/* Sidebar for larger screens */}
@@ -163,10 +175,13 @@ export default function LodgeSection() {
             </Sheet>
             <div className="relative w-full flex  gap-2">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
-              <Input type="search" placeholder="Search..." className="pl-9 h-9 sm:w-96 pr-4 py-1 text-sm md:text-base" />
-              <Button variant="outline" size="sm" className=" px-3 mr-3 py-2 ">
-                <Search className="h-4 w-4" />
-              </Button>
+              <form action="" onSubmit={handleSubmit} className="flex gap-2">
+
+                <Input type="search" placeholder="Search..." name="search" className="pl-9 h-9 sm:w-96 pr-4 py-1 text-sm md:text-base" />
+                <Button variant="outline" type="submit" size="sm" className=" px-3 mr-3 py-2 ">
+                  <Search className="h-4 w-4" />
+                </Button>
+              </form>
             </div>
           </div>
           <div className="flex items-center gap-2 md:gap-4">
@@ -176,47 +191,11 @@ export default function LodgeSection() {
             <Button variant="ghost" size="icon" className="hidden md:inline-flex">
               <Bell className="h-4 w-4" />
             </Button>
-              {/* <Image
-                src="/placeholder.svg"
-                alt="Avatar"
-                width={32}
-                height={32}
-                className="h-full w-full object-cover"
-              /> */}
-              <UserData/>
+            <UserData />
           </div>
         </header>
 
         <div className="sm:p-6 p-3">
-          {/* <div className="mb-6 flex items-center gap-4 overflow-x-auto">
-            <Button className="gap-2 whitespace-nowrap">
-              <Plus className="h-4 w-4" />
-              Add New Lodge
-            </Button>
-            <Button variant="outline" className="gap-2 whitespace-nowrap">
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path
-                  d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              Upload Photos
-            </Button>
-            <Button variant="outline" className="gap-2 whitespace-nowrap">
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path
-                  d="M12 18.5a6.5 6.5 0 100-13 6.5 6.5 0 000 13zM12 14a2 2 0 100-4 2 2 0 000 4z"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              Manage Bookings
-            </Button>
-          </div> */}
-
           <div className="mb-6">
             <Tabs defaultValue="all" >
               <TabsList>
@@ -227,123 +206,31 @@ export default function LodgeSection() {
             </Tabs>
           </div>
 
-          {/* <div className="sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {isLoading ? (
-              <>
-                <LodgeCardSkeleton />
-                <LodgeCardSkeleton />
-                <LodgeCardSkeleton />
-              </>
-            ) : (
-              <>
 
-                <LodgeCard 
-                 name={'/placeholder.svg'}
-                 price={23}
-                 location={'asdf'}
-                 image={'/placeholder.svg'}
-                 rating={4}
-                 beds={2}
-                 baths={2}
-                 guests={34}/>
-                <LodgeCard 
-                 name={'/placeholder.svg'}
-                 price={23}
-                 location={'asdf'}
-                 image={'/placeholder.svg'}
-                 rating={4}
-                 beds={2}
-                 baths={2}
-                 guests={34}/>
-                <LodgeCard 
-                 name={'/placeholder.svg'}
-                 price={23}
-                 location={'asdf'}
-                 image={'/placeholder.svg'}
-                 rating={4}
-                 beds={2}
-                 baths={2}
-                 guests={34}/>
-              </>
-              
-            )}
-          </div> */}
-          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {isLoading
-              ?
+              ? Array(4).fill(0).map((_, i) => <LodgeCardSkeleton key={i} />)
+              : lodge.length === 0 ? <p>no lodge found</p>:lodge?.map((lodge: any, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                >
+                  <LodgeCard
+                    name={lodge?.lodgeName}
+                    price={lodge.roomPrice}
+                    location={`${lodge.place}, ${lodge.city}, ${lodge.state}`}
+                    image={lodge.images[0]}
+                    rating={3}
+                    beds={2}
+                    baths={2}
+                    id={lodge._id}
+                    lodgeType = {lodge?.lodgeType}
 
-              <LodgeCardSkeleton />
-
-              :
-              <>
-                <LodgeCard
-                  name={'/placeholder.svg'}
-                  price={23}
-                  location={'asdf'}
-                  image={'/placeholder.svg'}
-                  rating={4}
-                  beds={2}
-                  baths={2}
-                  guests={34} />
-                <LodgeCard
-                  name={'/placeholder.svg'}
-                  price={23}
-                  location={'asdf'}
-                  image={'/placeholder.svg'}
-                  rating={4}
-                  beds={2}
-                  baths={2}
-                  guests={34} />
-                <LodgeCard
-                  name={'/placeholder.svg'}
-                  price={23}
-                  location={'asdf'}
-                  image={'/placeholder.svg'}
-                  rating={4}
-                  beds={2}
-                  baths={2}
-                  guests={34} />
-                <LodgeCard
-                  name={'/placeholder.svg'}
-                  price={23}
-                  location={'asdf'}
-                  image={'/placeholder.svg'}
-                  rating={4}
-                  beds={2}
-                  baths={2}
-                  guests={34} />
-              </>
-            }
-          </div>
-          <div className="sm:hidden flex flex-col space-y-4">
-            {isLoading
-              ?
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
-                <MobileLodgeCardSkeleton />
-              </motion.div>
-
-              :
-              <motion.div
-
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
-                <MobileLodgeCard
-                  name={'/placeholder.svg'}
-                  price={23}
-                  location={'asdf'}
-                  image={'/placeholder.svg'}
-                  rating={4}
-                  beds={2}
-                  baths={2}
-                  guests={34} />
-              </motion.div>
-            }
+                  />
+                </motion.div>
+              ))}
           </div>
         </div>
       </div>
