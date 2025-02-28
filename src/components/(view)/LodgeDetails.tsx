@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
-export default function LodgeDetails({ lodgeName, roomPrice, place, state, pincode, city, owner = {}, maplink, description, lodgeType }: any) {
+export default function LodgeDetails({ lodgeName, roomPrice, place, state, pincode, city, owner, maplink, description, lodgeType }: any) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -17,64 +17,158 @@ export default function LodgeDetails({ lodgeName, roomPrice, place, state, pinco
         <div className="flex items-center gap-2">
           <Badge variant="secondary">
             <MapPin className="mr-1 h-3 w-3" />
-            {place || "Unknown Location"}
+            Mountain View
           </Badge>
           <Badge variant="secondary" className="capitalize">
-            <Users className="mr-1 h-3 w-3 " />
-            {lodgeType || "Not specified"}
+            <Users className="mr-1 h-3 w-3 " />{lodgeType}
           </Badge>
         </div>
 
-        {/* Lodge Name */}
+        {/* Lodge Type displayed before the lodge name */}
+        
+
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
           className="text-3xl font-bold capitalize"
         >
-          {lodgeName || "Lodge Name Not Available"}
+          {lodgeName}
         </motion.h1>
+        <div className="flex items-center gap-2">
+          {[...Array(5)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5 + i * 0.1, duration: 0.3 }}
+            >
+              <Star className={`h-5 w-5 ${i < 4 ? "fill-primary text-primary" : "fill-muted text-muted-foreground"}`} />
+            </motion.div>
+          ))}
+          <span className="text-sm text-muted-foreground">(28 reviews)</span>
+        </div>
       </div>
 
-      <motion.div className="space-y-2">
-        <div className="text-3xl font-bold">₹{roomPrice || "N/A"}/month</div>
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.5 }}
+        className="space-y-2"
+      >
+        <div className="text-3xl font-bold">₹{roomPrice}/month</div>
         <p className="text-sm text-muted-foreground">Includes all taxes and fees</p>
       </motion.div>
 
-      <motion.div className="space-y-4">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7, duration: 0.5 }}
+        className="space-y-4"
+      >
         <div className="prose max-w-none">
           <p className="text-muted-foreground">
-            {description || "No description available for this lodge."}
+            {description}
           </p>
         </div>
 
         <div className="space-y-2">
           <h3 className="text-lg font-semibold">Lodge Details</h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <motion.li className="flex items-center gap-2 capitalize">
+            <motion.li
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8, duration: 0.5 }}
+              className="flex items-center gap-2 capitalize"
+            >
               <MapPin className="h-4 w-4" />
-              <span>{place || "Unknown Place"}, {city || "Unknown City"}, {state || "Unknown State"}, {pincode || "N/A"}</span>
+              <span>{place}, {city}, {state}, {pincode}</span>
             </motion.li>
-            <motion.li className="flex items-center gap-2">
+            <motion.li
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.9, duration: 0.5 }}
+              className="flex items-center gap-2"
+            >
               <User className="h-4 w-4" />
-              <span>Owned by {owner?.name || "Unknown Owner"}</span>
+              <span>Owned by {owner?.name}</span>
             </motion.li>
-            <motion.li className="flex items-center gap-2">
+            <motion.li
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1, duration: 0.5 }}
+              className="flex items-center gap-2"
+            >
               <Phone className="h-4 w-4" />
-              <a href={owner?.contact ? `tel:+91${owner.contact}` : "#"} className="text-primary hover:underline">
-                {owner?.contact ? `+91 ${owner.contact}` : "No contact info"}
+              <a href={`tel:+91${owner?.contact}`} className="text-primary hover:underline">
+                +91 {owner?.contact}
               </a>
             </motion.li>
-            <motion.li className="flex items-center gap-2">
+            <motion.li
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1.1, duration: 0.5 }}
+              className="flex items-center gap-2"
+            >
               <Map className="h-4 w-4" />
-              <a href={maplink || "#"} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                {maplink ? "View on Google Maps" : "Map link not available"}
+              <a
+                href={maplink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                View on Google Maps
               </a>
             </motion.li>
           </ul>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.5 }}
+          className="prose max-w-none"
+        >
+          <h3 className="text-lg font-semibold">About the Lodge</h3>
+          <p className="text-sm text-muted-foreground">
+            Nestled in the heart of the Rocky Mountains, our Cozy Mountain Lodge offers a perfect blend of rustic charm
+            and modern comfort. Built in 2015, this 2,000 sq ft lodge features panoramic mountain views, a spacious
+            open-plan living area, and a large deck perfect for outdoor dining and stargazing. The lodge is situated on
+            5 acres of private land, ensuring peace and privacy for our guests.
+          </p>
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.3, duration: 0.5 }}
+        className="flex flex-col gap-4 sm:flex-row"
+      >
+        <Button className="flex-1">
+          Book Now
+        </Button>
+        <Button variant="outline">
+          <Heart className="h-5 w-5" />
+        </Button>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4, duration: 0.5 }}
+        className="rounded-lg border p-4"
+      >
+        <h3 className="font-semibold">Amenities</h3>
+        <ul className="mt-2 grid grid-cols-2 gap-2 text-sm text-muted-foreground">
+          <li>✓ Free WiFi</li>
+          <li>✓ Mountain View</li>
+          <li>✓ Fireplace</li>
+          <li>✓ Fully Equipped Kitchen</li>
+          <li>✓ Parking</li>
+          <li>✓ Heating</li>
+        </ul>
       </motion.div>
     </motion.div>
   )
 }
-
