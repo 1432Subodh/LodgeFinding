@@ -10,5 +10,4 @@ function page() {
   </Suspense>
   )
 }
-
 export default page

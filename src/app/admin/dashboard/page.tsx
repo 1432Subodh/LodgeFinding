@@ -1,7 +1,4 @@
 'use client'
-import axios from 'axios'
-import { Fascinate } from 'next/font/google'
-import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 

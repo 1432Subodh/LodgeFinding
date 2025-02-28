@@ -35,13 +35,15 @@ export function LodgeCard({
           {/* Wrapper for both Image and Gradient */}
           <div className="relative w-full h-full transition-all duration-300 group-hover:scale-[102%]">
             <Image
-              src={image || "/placeholder.svg"}
-              alt={name}
+              src={image ||"/placeholder.svg"}
+              alt={name || 'something'}
               fill
               className="object-cover"
             />
             {/* Vignette Gradient */}
-            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0)_40%,_rgba(0,0,0,0.6)_100%)]"></div>
+            {
+              image && <div className={`absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0)_40%,_rgba(0,0,0,0.6)_100%)]`}></div>
+            }
           </div>
 
           {/* Lodge Type Badge (Bottom-Right) */}
@@ -85,8 +87,8 @@ export function LodgeCard({
 
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-sm sm:text-lg font-bold">${price}</span>
-              <span className="text-xs sm:text-sm text-muted-foreground">/night</span>
+              <span className="text-sm sm:text-lg font-bold">₹{price}</span>
+              <span className="text-xs sm:text-sm text-muted-foreground">/Month</span>
             </div>
             <Link href={`/lodge/view/${id}`}>
               <Button size="sm" className="text-xs sm:text-sm">

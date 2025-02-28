@@ -23,11 +23,16 @@ export default function LodgePage() {
   // Simulate loading
 
   useEffect(() => {
-    axios.post(Api_getLodge, {id}).then(res=>setLodge(res.data.lodge))
-  }, [])
-  console.log(lodge)
   
-  setTimeout(() => setIsLoading(false), 1300)
+    axios.post(Api_getLodge, { id })
+      .then(res => setLodge(res.data.lodge))
+      .finally(() => setIsLoading(false)); // Clears timeout properly
+  
+    return () => setIsLoading(false); // Cleanup function to prevent memory leaks
+  }, [id]); // Ensure it refetches if ID changes
+  
+  // console.log(lodge)
+  
 
   if (isLoading) {
     return <LoadingSkeleton />
@@ -60,7 +65,7 @@ export default function LodgePage() {
           className="mt-12"
         >
           <h2 className="text-2xl font-bold mb-6">Popular Lodges Nearby</h2>
-          <PopularLodges />
+          <PopularLodges id={lodge?._id} location = {lodge?.place}/>
         </motion.div>
         <ReviewSection />
       </div>

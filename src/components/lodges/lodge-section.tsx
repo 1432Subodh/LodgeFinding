@@ -21,34 +21,17 @@ import UserData from "../user/user-data"
 import axios from "axios"
 import { Api_getAllLodge, Api_Search } from "../../../helper/helper"
 import { useParams, useRouter, useSearchParams } from "next/navigation"
+import toast from "react-hot-toast"
+import SideBar from "./sidebar"
 // import UserDropdown from "./user-components"
 
 
-interface NavItemProps {
-  href: string
-  icon: React.ReactNode
-  children: React.ReactNode
-  active?: boolean
-}
 
-function NavItem({ href, icon, children, active }: NavItemProps) {
-  return (
-    <Link
-      href={href}
-      className={cn("flex items-center gap-2 px-3 py-2 text-sm text-gray-700 rounded-lg", active && "bg-gray-100")}
-    >
-      {icon}
-      <span>{children}</span>
-    </Link>
-  )
-}
 
 
 
 export default function LodgeSection() {
   const [isLoading, setIsLoading] = useState(true)
-  const [priceRange, setPriceRange] = useState([50, 500])
-  const [popularOnly, setPopularOnly] = useState(false)
 const [lodge, setLodge] = useState<any[]>([])
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -89,43 +72,7 @@ const [lodge, setLodge] = useState<any[]>([])
   
 
 
-  const Sidebar = () => (
-    <>
-      <div className="p-4">
-        <LodgeImage />
-      </div>
-      <nav className="space-y-1 px-2">
-        <NavItem href="#" icon={<LayoutGrid className="h-4 w-4" />} active>
-          All Lodges
-        </NavItem>
-        <NavItem href="#" icon={<Bell className="h-4 w-4" />}>
-          Boys
-        </NavItem>
-        <NavItem href="#" icon={<Grid className="h-4 w-4" />}>
-          Girls
-        </NavItem>
-      </nav>
-      <div className="py-3">
-        <div className="px-3 text-xs font-medium uppercase text-gray-500">Filters</div>
-        <div className="mt-2 px-3">
-          <div className="mb-4">
-            <label className="text-sm font-medium">Price Range</label>
-            <Slider min={0} max={1000} step={10} value={priceRange} onValueChange={setPriceRange} className="mt-2" />
-            <div className="mt-1 text-sm text-gray-500">
-              ${priceRange[0]} - ${priceRange[1]}
-            </div>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Switch id="popular" checked={popularOnly} onCheckedChange={setPopularOnly} />
-            <label htmlFor="popular" className="text-sm font-medium">
-              Popular only
-            </label>
-          </div>
-          <ThemeToggle />
-        </div>
-      </div>
-    </>
-  )
+  
 
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -141,13 +88,12 @@ const [lodge, setLodge] = useState<any[]>([])
     const data = formData.get("search");
 
     if (!data) {
-      alert("Search field is empty!");
+      toast.error("Search flied is empty")
       return;
     }
 
     console.log("Redirecting to:", `/lodge?search=${data}`);
     router.push(`/lodge?search=${data}`)
-    // window.location.href = `/lodge?search=${data}`;
   };
 
 
@@ -155,7 +101,7 @@ const [lodge, setLodge] = useState<any[]>([])
     <div className="flex h-screen  ">
       {/* Sidebar for larger screens */}
       <div className="hidden w-64 border-r md:block">
-        <Sidebar />
+        <SideBar />
       </div>
 
 
@@ -170,7 +116,7 @@ const [lodge, setLodge] = useState<any[]>([])
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-64 p-0">
-                <Sidebar />
+                <SideBar />
               </SheetContent>
             </Sheet>
             <div className="relative w-full flex  gap-2">

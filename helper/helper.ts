@@ -8,3 +8,5 @@ export const Api_addingLodge = '/api/lodge/adding' //POST
 export const Api_getAllLodge = '/api/lodge/get' //GET
 export const Api_getLodge = '/api/lodge/get' //POST
 export const Api_Search = '/api/lodge/search' //POST
+export const Api_Popular = '/api/lodge/popular' //GET
+export const Api_PopularNearby = '/api/lodge/popular' //POST

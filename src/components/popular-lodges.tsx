@@ -7,72 +7,13 @@ import { MobileLodgeCard } from "./mobile-lodge-card"
 import { LodgeCardSkeleton } from "./lodge-card-skeleton"
 import { MobileLodgeCardSkeleton } from "./mobile-lodge-card-skeleton"
 import { Button } from "./ui/button"
+import axios from "axios"
+import { Api_Popular } from "../../helper/helper"
 
-export const lodges: any[] = [
-  {
-    name: "Mountain Vista Lodge",
-    price: 299,
-    location: "Aspen, Colorado",
-    image: "/placeholder.svg",
-    rating: 4.8,
-    beds: 3,
-    baths: 2,
-    guests: 6,
-  },
-  {
-    name: "Lakefront Retreat",
-    price: 399,
-    location: "Lake Tahoe, Nevada",
-    image: "/placeholder.svg",
-    rating: 4.9,
-    beds: 4,
-    baths: 3,
-    guests: 8,
-  },
-  {
-    name: "Forest Haven Cabin",
-    price: 199,
-    location: "Portland, Oregon",
-    image: "/placeholder.svg",
-    rating: 4.7,
-    beds: 2,
-    baths: 1,
-    guests: 4,
-  },
-  {
-    name: "Alpine Luxury Suite",
-    price: 599,
-    location: "Vail, Colorado",
-    image: "/placeholder.svg",
-    rating: 5.0,
-    beds: 5,
-    baths: 4,
-    guests: 10,
-  },
-  {
-    name: "Riverside Cottage",
-    price: 249,
-    location: "Jackson Hole, Wyoming",
-    image: "/placeholder.svg",
-    rating: 4.6,
-    beds: 2,
-    baths: 2,
-    guests: 4,
-  },
-  {
-    name: "Summit View Resort",
-    price: 449,
-    location: "Park City, Utah",
-    image: "/placeholder.svg",
-    rating: 4.8,
-    beds: 4,
-    baths: 3,
-    guests: 8,
-  },
-]
 
 export function PopularLodges() {
   const [isLoading, setIsLoading] = useState(true)
+  const [popularLodge, setPopularLodge] = useState([])
 
   useEffect(() => {
     // Simulate network request
@@ -80,8 +21,14 @@ export function PopularLodges() {
       setIsLoading(false)
     }, 2000)
 
+    axios.get(Api_Popular).then((res)=>{
+      setPopularLodge(res.data.randomLodge)
+    })
+
     return () => clearTimeout(timer)
   }, [])
+
+  console.log(popularLodge)
 
   return (
     <section className="py-8 sm:py-12 bg-muted/50">
@@ -99,30 +46,30 @@ export function PopularLodges() {
         </motion.div>
         <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {isLoading
-            ? Array(4)
-                .fill(0)
-                .map((_, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <LodgeCardSkeleton />
-                  </motion.div>
-                ))
-            : lodges.slice(0, 4).map((lodge, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <LodgeCard {...lodge} />
-                </motion.div>
-              ))}
+            ? Array(4).fill(0).map((_, i) => <LodgeCardSkeleton key={i} />)
+            : popularLodge.length === 0 ? <p>no lodge found</p> : popularLodge?.map((lodge: any, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+              >
+                <LodgeCard
+                  name={lodge?.lodgeName}
+                  price={lodge.roomPrice}
+                  location={`${lodge.place}, ${lodge.city}, ${lodge.state}`}
+                  image={lodge?.images[0]}
+                  rating={3}
+                  beds={2}
+                  baths={2}
+                  id={lodge._id}
+                  lodgeType={lodge?.lodgeType}
+
+                />
+              </motion.div>
+            ))}
         </div>
-        <div className="sm:hidden flex flex-col space-y-4">
+        {/* <div className="sm:hidden flex flex-col space-y-4">
           {isLoading
             ? Array(4)
                 .fill(0)
@@ -146,7 +93,7 @@ export function PopularLodges() {
                   <MobileLodgeCard {...lodge} />
                 </motion.div>
               ))}
-        </div>
+        </div> */}
       </div>
     </section>
   )
