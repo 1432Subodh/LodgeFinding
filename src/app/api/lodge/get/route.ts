@@ -3,9 +3,9 @@ import lodgeSchema from "../../../../../models/LodgeModel";
 import { connect_db } from "../../../../../utils/connect";
 
 
-connect_db()
 
 export async function GET (){
+    await connect_db()
     try {
         const lodges = await lodgeSchema.find()
     
@@ -20,20 +20,27 @@ export async function GET (){
     }
 } 
 export async function POST(request:NextRequest) {
-
-    const reqBody = await request.json();
-    const {id} = reqBody;
+    try {
+        await connect_db()
     
-    const lodge = await lodgeSchema.findById(id)
-
-    if(!lodge){
+        const reqBody = await request.json();
+        const {id} = reqBody;
+        
+        const lodge = await lodgeSchema.findById(id)
+    
+        if(!lodge){
+            return NextResponse.json({
+                message: 'lodge not found',
+            })
+        }
+    
         return NextResponse.json({
-            message: 'lodge not found',
+            message: 'lodge found',
+            lodge
+        })
+    } catch (error:any) {
+        return NextResponse.json({
+            message: error.message
         })
     }
-
-    return NextResponse.json({
-        message: 'lodge found',
-        lodge
-    })
 }
