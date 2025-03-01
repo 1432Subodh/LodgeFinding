@@ -5,8 +5,9 @@ import lodgeSchema from "../../../../../models/LodgeModel";
 connect_db()
 
 export async function GET(request: NextRequest) {
+    
     try {
-
+        await connect_db()
         const randomLodge = await lodgeSchema.aggregate([{ $sample: { size: 4 } }])
         return NextResponse.json({
             message: 'found',
@@ -22,6 +23,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
     try {
+        await connect_db()
 
         const reqBody = await request.json();
         const { location, id } = reqBody;
