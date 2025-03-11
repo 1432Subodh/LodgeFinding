@@ -100,14 +100,14 @@ const [lodge, setLodge] = useState<any[]>([])
   return (
     <div className="flex h-screen  ">
       {/* Sidebar for larger screens */}
-      <div className="hidden w-64 border-r md:block">
+      <div className="hidden w-64 border-r md:block dark:bg-[#0c0a09]">
         <SideBar />
       </div>
 
 
       {/* Main content */}
-      <div className="flex-1 overflow-auto dark:bg-[#101010]">
-        <header className="flex z-50 items-center justify-between border-b px-3 py-3 md:px-6 md:py-4 bg-white dark:bg-black">
+      <div className="flex-1 overflow-auto dark:bg-[#0c0a09]">
+        <header className="flex z-50 items-center justify-between border-b px-3 py-3 md:px-6 md:py-4 bg-white dark:bg-[#0c0a09]">
           <div className="flex items-center gap-2 md:gap-4 ">
             <Sheet>
               <SheetTrigger asChild>

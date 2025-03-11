@@ -60,9 +60,11 @@ function UserData() {
                         <DropdownMenuContent align="center" className="w-48 relative right-4">
                             <DropdownMenuLabel className="font-bold">My Account</DropdownMenuLabel>
                             <DropdownMenuSeparator />
+                            <Link href={`user/profile/${user?._id}`}>
                             <DropdownMenuItem>
                                 <User className="mr-2 h-4 w-4" /> Profile
                             </DropdownMenuItem>
+                            </Link>
                             <DropdownMenuItem>
                                 <Settings className="mr-2 h-4 w-4" /> Settings
                             </DropdownMenuItem>

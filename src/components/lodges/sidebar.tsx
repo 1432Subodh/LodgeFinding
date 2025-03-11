@@ -37,7 +37,7 @@ interface NavItemProps {
     }
     return (
         <>
-        <div className="p-4">
+        <div className="p-4" >
           <LodgeImage />
         </div>
         <nav className="space-y-1 px-2">
