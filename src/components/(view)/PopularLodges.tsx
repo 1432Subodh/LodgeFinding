@@ -26,7 +26,7 @@ export default function PopularLodges({id, location}:any) {
       (state: RootState) => state.lodgeData,
       shallowEqual
   );
-  console.log(populaLodgerNearby.results)
+  // console.log(populaLodgerNearby.results)
   
   useEffect(() => {
     if(id){

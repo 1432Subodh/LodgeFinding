@@ -20,11 +20,11 @@ function LodgeCardSection() {
         (state: RootState) => state.lodgeData,
         shallowEqual
     );
-    console.log(lodges)
+    // console.log(lodges)
 
     useEffect(() => {
         if (search) {
-            console.log('asdf')
+            // console.log('asdf')
             dispatch(fetchSearchLodge(search)).finally(() => setDataFetched(true));
         } else {
             dispatch(fetchLodge()).finally(() => setDataFetched(true));

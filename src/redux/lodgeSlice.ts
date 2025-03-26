@@ -9,7 +9,9 @@ const initialState = {
     error: null
 }
 
-export const fetchLodge = createAsyncThunk('lodgeAPI', async()=>{
+export const fetchLodge = createAsyncThunk('lodgeAPI', async(_, { getState })=>{
+    const state:any = getState(); // Access the Redux store state
+    console.log(state.lodgeData);
     const res = await axios.get('/api/lodge/get');
     return res.data
 })
