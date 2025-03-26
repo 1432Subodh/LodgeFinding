@@ -23,6 +23,7 @@ import { Api_getAllLodge, Api_Search } from "../../../helper/helper"
 import { useParams, useRouter, useSearchParams } from "next/navigation"
 import toast from "react-hot-toast"
 import SideBar from "./sidebar"
+import LodgeCardSection from "./lodge-card-section"
 // import UserDropdown from "./user-components"
 
 
@@ -31,70 +32,69 @@ import SideBar from "./sidebar"
 
 
 export default function LodgeSection() {
-  const [isLoading, setIsLoading] = useState(true)
-const [lodge, setLodge] = useState<any[]>([])
-  const router = useRouter()
-  const searchParams = useSearchParams()
-
-
-  // Simulate loading
-  useEffect(() => {
-    const fetchLodges = async () => {
-      try {
-        setIsLoading(true);
-        const search = searchParams.get("search");
-  
-        let response;
-        if (!search) {
-          console.log("Fetching all lodges...");
-          response = await axios.get(Api_getAllLodge);
-          if (response.data.lodges) {
-            setLodge(response.data.lodges);
-          }
-        } else {
-          console.log("Searching lodges...");
-          response = await axios.post(Api_Search, { search });
-          if (response.data.results) {
-            setLodge(response.data.results);
-          }
-        }
-  
-        console.log("Lodge data updated:", response?.data?.lodges || response?.data?.results);
-      } catch (error) {
-        console.error("Error fetching lodges:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-  
-    fetchLodges();
-  }, [searchParams]); // Depend on `searchParams` so it triggers correctly
+//   const [isLoading, setIsLoading] = useState(true)
+// const [lodge, setLodge] = useState<any[]>([])
   
 
 
+  // // Simulate loading
+  // useEffect(() => {
+  //   const fetchLodges = async () => {
+  //     try {
+  //       setIsLoading(true);
+  //       const search = searchParams.get("search");
+  
+  //       let response;
+  //       if (!search) {
+  //         console.log("Fetching all lodges...");
+  //         response = await axios.get(Api_getAllLodge);
+  //         if (response.data.lodges) {
+  //           setLodge(response.data.lodges);
+  //         }
+  //       } else {
+  //         console.log("Searching lodges...");
+  //         response = await axios.post(Api_Search, { search });
+  //         if (response.data.results) {
+  //           setLodge(response.data.results);
+  //         }
+  //       }
+  
+  //       console.log("Lodge data updated:", response?.data?.lodges || response?.data?.results);
+  //     } catch (error) {
+  //       console.error("Error fetching lodges:", error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  
+  //   fetchLodges();
+  // }, [searchParams]); // Depend on `searchParams` so it triggers correctly
   
 
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  
 
-    const formData = new FormData(e.currentTarget);
 
-    // Debugging: Log all form values
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
 
-    const data = formData.get("search");
+  //   const formData = new FormData(e.currentTarget);
 
-    if (!data) {
-      toast.error("Search flied is empty")
-      return;
-    }
+  //   // Debugging: Log all form values
+  //   for (let [key, value] of formData.entries()) {
+  //     console.log(`${key}: ${value}`);
+  //   }
 
-    console.log("Redirecting to:", `/lodge?search=${data}`);
-    router.push(`/lodge?search=${data}`)
-  };
+  //   const data = formData.get("search");
+
+  //   if (!data) {
+  //     toast.error("Search flied is empty")
+  //     return;
+  //   }
+
+  //   console.log("Redirecting to:", `/lodge?search=${data}`);
+  //   router.push(`/lodge?search=${data}`)
+  // };
 
 
   return (
@@ -121,7 +121,7 @@ const [lodge, setLodge] = useState<any[]>([])
             </Sheet>
             <div className="relative w-full flex  gap-2">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
-              <form action="" onSubmit={handleSubmit} className="flex gap-2">
+              <form action=""  className="flex gap-2">
 
                 <Input type="search" placeholder="Search..." name="search" className="pl-9 h-9 sm:w-96 pr-4 py-1 text-sm md:text-base" />
                 <Button variant="outline" type="submit" size="sm" className=" px-3 mr-3 py-2 ">
@@ -141,44 +141,7 @@ const [lodge, setLodge] = useState<any[]>([])
           </div>
         </header>
 
-        <div className="sm:p-6 p-3">
-          <div className="mb-6">
-            <Tabs defaultValue="all" >
-              <TabsList>
-                <TabsTrigger value="all">All Lodges</TabsTrigger>
-                <TabsTrigger value="available">Boys</TabsTrigger>
-                <TabsTrigger value="booked">Girls</TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div>
-
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {isLoading
-              ? Array(4).fill(0).map((_, i) => <LodgeCardSkeleton key={i} />)
-              : lodge.length === 0 ? <p>no lodge found</p>:lodge?.map((lodge: any, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                >
-                  <LodgeCard
-                    name={lodge?.lodgeName}
-                    price={lodge.roomPrice}
-                    location={`${lodge.place}, ${lodge.city}, ${lodge.state}`}
-                    image={lodge.images[0]}
-                    rating={3}
-                    beds={2}
-                    baths={2}
-                    id={lodge._id}
-                    lodgeType = {lodge?.lodgeType}
-
-                  />
-                </motion.div>
-              ))}
-          </div>
-        </div>
+        <LodgeCardSection/>
       </div>
     </div>
   )

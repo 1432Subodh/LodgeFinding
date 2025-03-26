@@ -26,6 +26,7 @@ export async function POST(request:NextRequest) {
         const reqBody = await request.json();
         const {id} = reqBody;
         
+        
         const lodge = await lodgeSchema.findById(id)
     
         if(!lodge){

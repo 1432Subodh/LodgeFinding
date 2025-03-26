@@ -1,22 +1,40 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import { Input } from '@/components/ui/input'
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import UserList from './Tst'
+import axios from 'axios'
 
 function page() {
-  const [user, setUser] = useState<any>()
+  const [name, setname] = useState()
 
-  useEffect(() => {
-      
-      }, [])
-  
+  const userDispatch = useDispatch()
 
-    
+  const ref: any = useRef(null)
+
+  const submitbtn = async () => {
+    // console.log(ref.current?.value)
+
+    const t1 = await axios.get('/api/lodge/get')
+
+  }
+
+
+
+
+
+
+
   return (
-    <div className='w-full h-screen p-4'>
-      <div>
-        firstname = {user?.firstname || 'asdfasdf'} asdf <br />
-        lastname = {user?.lastname} <br />
-        email = {user?.email}
+    <div className='grid grid-cols-4 p-4'>
+      <div className='grid gap-4'>
 
+        <Input placeholder='enter name' className='' ref={ref} />
+        <Input type='button' value='asdf' onClick={submitbtn} />
+      </div>
+
+      <div>
+        <UserList />
       </div>
     </div>
   )

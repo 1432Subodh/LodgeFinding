@@ -10,25 +10,41 @@ import { Api_PopularNearby } from "../../../helper/helper"
 import axios from "axios"
 import Link from "next/link"
 import toast from "react-hot-toast"
+import { shallowEqual, useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "@/redux/store"
+import { fetchPopularLodgeNearby } from "@/redux/lodgeSlice"
 
-const popularLodges = [
-  { name: "Sunset Peak Cabin", price: 179, rating: 4.7, image: "/placeholder.svg" },
-  { name: "Lakeside Retreat", price: 225, rating: 4.9, image: "/placeholder.svg" },
-  { name: "Pine Forest Lodge", price: 159, rating: 4.5, image: "/placeholder.svg" },
-]
 
-export default function PopularLodges({ id, location }: { id: string, location: string }) {
+export default function PopularLodges({id, location}:any) {
 
-  const [popularLodges, setPopularLodges] = useState<any>([])
+  const dispatch = useDispatch<AppDispatch>();
+  const [dataFetched, setDataFetched] = useState(false);
+  // const router = useRouter()
+
+  // Select lodges, loading, and error state from Redux store
+  const { populaLodgerNearby, loading, error }: any = useSelector(
+      (state: RootState) => state.lodgeData,
+      shallowEqual
+  );
+  console.log(populaLodgerNearby.results)
+  
   useEffect(() => {
+    if(id){
+      
+      dispatch(fetchPopularLodgeNearby({id:id, location:location}));
+      console.log(id)
+    }
+    // console.log(popularNearby)
+  }, [dispatch, id]);
 
-
-    axios.post(Api_PopularNearby, { id, location }).then(res => setPopularLodges(res.data.results)).catch((err:any)=>toast.error(err.message))
-  }, [])
 
   return (
+
+    
+   
     <div className="grid gap-6 md:grid-cols-3">
-      {popularLodges.map((lodge: any, index: any) => (
+      
+      {populaLodgerNearby.results?.map((lodge: any, index: any) => (
         <motion.div
           key={index}
           initial={{ opacity: 0, y: 20 }}
@@ -63,6 +79,7 @@ export default function PopularLodges({ id, location }: { id: string, location: 
         </motion.div>
       ))}
     </div>
+    
   )
 }
 

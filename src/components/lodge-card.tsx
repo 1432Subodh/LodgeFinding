@@ -35,11 +35,13 @@ export function LodgeCard({
           {/* Wrapper for both Image and Gradient */}
           <div className="relative w-full h-full transition-all duration-300 group-hover:scale-[102%]">
             <Image
-              src={image ||"/placeholder.svg"}
-              alt={name || 'something'}
+              src={image || "/placeholder.svg"}
+              alt={name || "something"}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover"
             />
+
             {/* Vignette Gradient */}
             {
               image && <div className={`absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0)_40%,_rgba(0,0,0,0.6)_100%)]`}></div>
@@ -49,7 +51,7 @@ export function LodgeCard({
           {/* Lodge Type Badge (Bottom-Right) */}
           {lodgeType && (
             <div className="absolute bottom-2 right-2">
-              <Badge className={`text-white capitalize text-xs sm:scale-100 scale-90 ${lodgeType ==='boys' ? 'bg-green-700 hover:bg-green-800': 'bg-pink-600 hover:bg-pink-700'}`}>
+              <Badge className={`text-white capitalize text-xs sm:scale-100 scale-90 ${lodgeType === 'boys' ? 'bg-green-700 hover:bg-green-800' : 'bg-pink-600 hover:bg-pink-700'}`}>
                 {lodgeType}
               </Badge>
             </div>

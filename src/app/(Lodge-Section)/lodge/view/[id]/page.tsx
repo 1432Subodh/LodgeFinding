@@ -12,49 +12,49 @@ import { Header } from "@/components/header"
 import { useParams } from "next/navigation"
 import axios from "axios"
 import { Api_getLodge } from "../../../../../../helper/helper"
+import { shallowEqual, useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "@/redux/store"
+import { fetchLodgeDetails } from "@/redux/lodgeSlice"
 
 
 export default function LodgePage() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [lodge, setLodge] = useState<any>({})
   const param = useParams()
   const id = param.id
 
   // Simulate loading
 
-  useEffect(() => {
-  
-    axios.post(Api_getLodge, { id })
-      .then(res => setLodge(res.data.lodge))
-      .finally(() => setIsLoading(false)); // Clears timeout properly
-  
-    return () => setIsLoading(false); // Cleanup function to prevent memory leaks
-  }, [id]); // Ensure it refetches if ID changes
-  
-  // console.log(lodge)
-  
+    const dispatch = useDispatch<AppDispatch>();
+    const [dataFetched, setDataFetched] = useState(false);
 
-  if (isLoading) {
-    return <LoadingSkeleton />
-  }
+    // Select lodges, loading, and error state from Redux store
+    const { lodgeDetails, loading, error }: any = useSelector(
+        (state: RootState) => state.lodgeData,
+        shallowEqual
+    );
+    
+
+    useEffect(() => {
+        dispatch(fetchLodgeDetails(id)).finally(() => setDataFetched(true));
+    }, [dispatch]);
 
   return (
+    
     <>
     <Header/>
       <div className="mx-auto px-4 md:px-10 py-6">
         <div className="grid gap-8 md:grid-cols-2">
-          <LodgeGallery images={lodge.images}/>
+          <LodgeGallery images={lodgeDetails.lodge?.images}/>
           <LodgeDetails 
-          lodgeName= {lodge.lodgeName}
-          roomPrice = {lodge.roomPrice}
-           place = {lodge.place} 
-           state = {lodge.state} 
-           pincode = {lodge.pincode} 
-           city = {lodge.city} 
-           owner = {lodge.owner} 
-           maplink = {lodge.maplink} 
-           description = {lodge.description}
-           lodgeType = {lodge.lodgeType}
+          lodgeName= {lodgeDetails.lodge?.lodgeName}
+          roomPrice = {lodgeDetails.lodge?.roomPrice}
+           place = {lodgeDetails.lodge?.place} 
+           state = {lodgeDetails.lodge?.state} 
+           pincode = {lodgeDetails.lodge?.pincode} 
+           city = {lodgeDetails.lodge?.city} 
+           owner = {lodgeDetails.lodge?.owner} 
+           maplink = {lodgeDetails.lodge?.maplink} 
+           description = {lodgeDetails.lodge?.description}
+           lodgeType = {lodgeDetails.lodge?.lodgeType}
           />
         </div>
         {/* <NearbyAttractions /> */}
@@ -65,7 +65,8 @@ export default function LodgePage() {
           className="mt-12"
         >
           <h2 className="text-2xl font-bold mb-6">Popular Lodges Nearby</h2>
-          <PopularLodges id={lodge?._id} location = {lodge?.place}/>
+          {/* {lodgeDetails.lodge?._id} */}
+          <PopularLodges id={lodgeDetails.lodge?._id} location = {lodgeDetails.lodge?.place}/>
         </motion.div>
         <ReviewSection />
       </div>
