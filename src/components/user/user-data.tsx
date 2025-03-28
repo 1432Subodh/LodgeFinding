@@ -47,7 +47,7 @@ function UserData() {
     const logout = () => {
         axios.get(Api_logout).then((res) => {
             setIsLogin(true)
-            router.push('/')
+            
         })
     }
 
@@ -55,7 +55,14 @@ function UserData() {
         <>
 
             {
-                isLogin ? (loading ? <div className="w-6 h-6 border-[2px] border-primary border-t-transparent rounded-full animate-spin"></div> :
+                isLogin ? (loading ?
+                    <Avatar className='w-9 h-9'>
+                        <AvatarFallback className='uppercase bg-transparent'>
+
+                            <div className="w-6 h-6 border-[2px] border-primary border-t-transparent rounded-full animate-spin"></div>
+                        </AvatarFallback>
+                    </Avatar>
+                    :
                     <Link href={'/login'}><Button variant={'outline'} size={'sm'} >login</Button> </Link>) :
 
                     <DropdownMenu>
