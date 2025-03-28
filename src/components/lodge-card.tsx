@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "./ui/badge";
+import { AppDispatch } from "@/redux/store";
+import { useDispatch } from "react-redux";
+import { fetchLodgeDetails } from "@/redux/lodgeSlice";
 
 export function LodgeCard({
   name,
@@ -27,6 +30,9 @@ export function LodgeCard({
   image?: string;
   lodgeType?: string;
 }) {
+
+  const dispatch = useDispatch<AppDispatch>();
+
   return (
     <Card className="overflow-hidden group">
       <div className="flex flex-row md:flex-col">
@@ -43,9 +49,9 @@ export function LodgeCard({
             />
 
             {/* Vignette Gradient */}
-            {
+            {/* {
               image && <div className={`absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0)_40%,_rgba(0,0,0,0.6)_100%)]`}></div>
-            }
+            } */}
           </div>
 
           {/* Lodge Type Badge (Bottom-Right) */}

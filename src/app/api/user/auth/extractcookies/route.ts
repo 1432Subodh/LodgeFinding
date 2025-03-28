@@ -13,6 +13,7 @@ export async function POST(request: NextRequest){
         const reqBody = await request.json()
         const {token} = reqBody
         
+        console.log(token)
         
         const decoded:any = jwt.verify(token, process.env.JWT_KEY!)
 
@@ -25,7 +26,8 @@ export async function POST(request: NextRequest){
 
     } catch (error:any) {
         return NextResponse.json({
-            message: error.message
+            
+            error: error.message
         })
     }
 }

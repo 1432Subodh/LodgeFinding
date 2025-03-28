@@ -1,30 +1,13 @@
 "use client"
 
-import { useState, useEffect as ReactuseEffect, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Slider } from "@/components/ui/slider"
-import { Switch } from "@/components/ui/switch"
-import { cn } from "@/lib/utils"
-import { Bell, Grid, LayoutGrid, Menu, Search } from "lucide-react"
-import Link from "next/link"
+import { Bell, Grid, Menu, Search } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import type React from "react"
-// import LodgeCard from "./lodge-card"
-import { LodgeCard, LodgeCardSkeleton } from "../lodge-card"
-import { ThemeToggle } from "../theme-toggle"
-// import { LodgeCardSkeleton } from "../lodge-card-skeleton"
-import { motion } from "framer-motion"
-import LodgeImage from "../logo"
 import UserData from "../user/user-data"
-import axios from "axios"
-import { Api_getAllLodge, Api_Search } from "../../../helper/helper"
-import { useParams, useRouter, useSearchParams } from "next/navigation"
-import toast from "react-hot-toast"
 import SideBar from "./sidebar"
 import LodgeCardSection from "./lodge-card-section"
-// import UserDropdown from "./user-components"
 
 
 
@@ -32,69 +15,7 @@ import LodgeCardSection from "./lodge-card-section"
 
 
 export default function LodgeSection() {
-//   const [isLoading, setIsLoading] = useState(true)
-// const [lodge, setLodge] = useState<any[]>([])
-  
 
-
-  // // Simulate loading
-  // useEffect(() => {
-  //   const fetchLodges = async () => {
-  //     try {
-  //       setIsLoading(true);
-  //       const search = searchParams.get("search");
-  
-  //       let response;
-  //       if (!search) {
-  //         console.log("Fetching all lodges...");
-  //         response = await axios.get(Api_getAllLodge);
-  //         if (response.data.lodges) {
-  //           setLodge(response.data.lodges);
-  //         }
-  //       } else {
-  //         console.log("Searching lodges...");
-  //         response = await axios.post(Api_Search, { search });
-  //         if (response.data.results) {
-  //           setLodge(response.data.results);
-  //         }
-  //       }
-  
-  //       console.log("Lodge data updated:", response?.data?.lodges || response?.data?.results);
-  //     } catch (error) {
-  //       console.error("Error fetching lodges:", error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  
-  //   fetchLodges();
-  // }, [searchParams]); // Depend on `searchParams` so it triggers correctly
-  
-
-
-  
-
-
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   const formData = new FormData(e.currentTarget);
-
-  //   // Debugging: Log all form values
-  //   for (let [key, value] of formData.entries()) {
-  //     console.log(`${key}: ${value}`);
-  //   }
-
-  //   const data = formData.get("search");
-
-  //   if (!data) {
-  //     toast.error("Search flied is empty")
-  //     return;
-  //   }
-
-  //   console.log("Redirecting to:", `/lodge?search=${data}`);
-  //   router.push(`/lodge?search=${data}`)
-  // };
 
 
   return (

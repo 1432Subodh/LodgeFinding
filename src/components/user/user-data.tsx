@@ -9,29 +9,38 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Api_logout, extractUser } from '../../../helper/helper';
 import Cookies from 'js-cookie';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/redux/store';
+import { fetchUser } from '@/redux/userSlice';
 
 function UserData() {
-    const [user, setUser] = useState<any>(null)
     const [isLogin, setIsLogin] = useState(true)
     const router = useRouter()
+    const dispatch = useDispatch<AppDispatch>();
+
+
+
+    const { user, loading, error }: any = useSelector(
+        (state: RootState) => state.user,
+        shallowEqual
+    );
+    console.log(user)
 
     const token = Cookies.get('token');
     useEffect(() => {
 
         if (!token) {
-            console.log('invalid token');
+            dispatch(fetchUser())
+            return
+
 
         } else {
 
-            axios.post(extractUser, { token }).then((res) => {
-
-                console.log(res)
-                if (res.data.user) {
-                    setUser(res.data.user)
-                    setIsLogin(false)
-                }
-            })
+            dispatch(fetchUser())
+            setIsLogin(false)
         }
+
+
     }, [])
 
 
@@ -44,16 +53,17 @@ function UserData() {
 
     return (
         <>
+
             {
-                isLogin ?
-                    <Link href={'/login'}><Button variant={'outline'} size={'sm'} >login</Button> </Link> :
+                isLogin ? (loading ? <div className="w-6 h-6 border-[2px] border-primary border-t-transparent rounded-full animate-spin"></div> :
+                    <Link href={'/login'}><Button variant={'outline'} size={'sm'} >login</Button> </Link>) :
 
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" className="relative w-9 h-9 rounded-full">
                                 <Avatar className='w-9 h-9'>
                                     <AvatarImage src="/placeholder-user.jpg" alt="User" />
-                                    <AvatarFallback className='uppercase'>{user?.firstname[0]}</AvatarFallback>
+                                    <AvatarFallback className='uppercase'>{user.firstname?.charAt(0)}</AvatarFallback>
                                 </Avatar>
                             </Button>
                         </DropdownMenuTrigger>
@@ -61,9 +71,9 @@ function UserData() {
                             <DropdownMenuLabel className="font-bold">My Account</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <Link href={`user/profile/${user?._id}`}>
-                            <DropdownMenuItem>
-                                <User className="mr-2 h-4 w-4" /> Profile
-                            </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <User className="mr-2 h-4 w-4" /> Profile
+                                </DropdownMenuItem>
                             </Link>
                             <DropdownMenuItem>
                                 <Settings className="mr-2 h-4 w-4" /> Settings
@@ -75,6 +85,11 @@ function UserData() {
                         </DropdownMenuContent>
                     </DropdownMenu>
             }
+
+
+
+
+
         </>
     )
 }

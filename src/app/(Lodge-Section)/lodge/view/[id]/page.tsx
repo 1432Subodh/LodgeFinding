@@ -15,6 +15,7 @@ import { Api_getLodge } from "../../../../../../helper/helper"
 import { shallowEqual, useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "@/redux/store"
 import { fetchLodgeDetails } from "@/redux/lodgeSlice"
+import { loadGetInitialProps } from "next/dist/shared/lib/utils"
 
 
 export default function LodgePage() {
@@ -34,12 +35,18 @@ export default function LodgePage() {
     
 
     useEffect(() => {
+      console.log(loading)
         dispatch(fetchLodgeDetails(id)).finally(() => setDataFetched(true));
+      console.log(loading)
+
     }, [dispatch]);
+
+  
 
   return (
     
     <>
+
     <Header/>
       <div className="mx-auto px-4 md:px-10 py-6">
         <div className="grid gap-8 md:grid-cols-2">

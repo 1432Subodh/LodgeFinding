@@ -1,9 +1,12 @@
 
 import { configureStore } from '@reduxjs/toolkit'
 import lodgeReducer from './lodgeSlice'
+import userReducer from './userSlice'
+
 export const store = configureStore({
     reducer:{
-        lodgeData : lodgeReducer
+        lodgeData : lodgeReducer,
+        user: userReducer
     }
 })
 
