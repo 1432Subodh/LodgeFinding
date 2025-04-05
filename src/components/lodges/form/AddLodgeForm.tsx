@@ -28,7 +28,7 @@ export default function AddLodgeForm() {
         return new Promise<string>((resolve, reject) => {
           const reader = new FileReader();
           reader.readAsDataURL(file);
-  
+
           reader.onload = () => resolve(reader.result as string);
           reader.onerror = (error) => reject(error);
         });
@@ -38,31 +38,28 @@ export default function AddLodgeForm() {
 
   const onSubmit = async (data: LodgeFormData) => {
     const files: File[] = data.images;
-    console.log(data)
+    // console.log(data)
     if (!files.length) {
-      console.log("No images uploaded.");
       return;
     }
-  
+
     try {
       const base64Images = await convertFilesToBase64(files);
-      console.log("Base64 Encoded Images:", base64Images);
-
       const restData = data
       restData.base64Images = base64Images
-      
+
       const response = await axios.post(Api_addingLodge, restData)
-      console.log(response)
+      // console.log(response)
       // Now, you can send base64Images to your API or store them as needed.
     } catch (error) {
       console.error("Error converting files:", error);
     }
   };
-  
-  
 
 
-  
+
+
+
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -76,7 +73,7 @@ export default function AddLodgeForm() {
     },
   }
 
-  
+
 
   return (
     <motion.div
@@ -96,7 +93,7 @@ export default function AddLodgeForm() {
               <Location control={form.control} />
               <Facilities control={form.control} />
               <OwnerInformation control={form.control} />
-              <ImageUpload control={form.control}/>
+              <ImageUpload control={form.control} />
               <Description control={form.control} />
             </CardContent>
             <CardFooter className="flex justify-end space-x-4">

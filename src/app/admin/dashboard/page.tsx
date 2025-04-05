@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 //     useEffect(() => {
 //       (async()=>{
 //         const res = await axios.get('/api/user/profile')
-//         console.log(res)
+//         // console.log(res)
 //         if(res.data.user.isAdmin === false){
 //             toast.error('Login with Admin Account')
 //             route.push('/')

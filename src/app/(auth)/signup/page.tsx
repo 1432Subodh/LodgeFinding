@@ -29,7 +29,7 @@
 //     }
 
 //     const res = await postReq({URL: 'https://lodgehazar.netlify.app/api/user/auth/signup', data})
-//     console.log(res) 
+//     // console.log(res) 
 
 //     if(res.data.success){
 //       toast.success(res.data.message)
@@ -43,7 +43,7 @@
     
 
 
-//     console.log(data)
+//     // console.log(data)
 //   }
 //   return (
 //     <form action="" onSubmit={submitFromData}>

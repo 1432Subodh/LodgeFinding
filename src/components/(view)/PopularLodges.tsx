@@ -12,7 +12,7 @@ import Link from "next/link"
 import toast from "react-hot-toast"
 import { shallowEqual, useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "@/redux/store"
-import { fetchPopularLodgeNearby } from "@/redux/lodgeSlice"
+import { fetchPopularLodgeNearby, removeLodgeDetails } from "@/redux/lodgeSlice"
 
 
 export default function PopularLodges({id, location}:any) {
@@ -26,15 +26,14 @@ export default function PopularLodges({id, location}:any) {
       (state: RootState) => state.lodgeData,
       shallowEqual
   );
-  // console.log(populaLodgerNearby.results)
+  // // console.log(populaLodgerNearby.results)
   
   useEffect(() => {
     if(id){
       
       dispatch(fetchPopularLodgeNearby({id:id, location:location}));
-      console.log(id)
     }
-    // console.log(popularNearby)
+    // // console.log(popularNearby)
   }, [dispatch, id]);
 
 
@@ -69,7 +68,7 @@ export default function PopularLodges({id, location}:any) {
             </CardContent>
             <CardFooter className="p-4 pt-0">
               <Link href={`/lodge/view/${lodge._id}`} className="w-full">
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" onClick={()=>dispatch(removeLodgeDetails())}>
                   View Details
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>

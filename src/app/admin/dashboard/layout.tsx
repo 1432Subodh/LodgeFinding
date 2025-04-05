@@ -36,18 +36,16 @@ export default function Layout({ children }: LayoutProps) {
     const route = useRouter()
     const [loading, setLoading] = useState(true)
     const token = Cookies.get('token');
-    console.log(token)
+    // console.log(token)
 
     useEffect(() => {
 
         if (!token) {
-            console.log('invalid token');
-
-        } else {
+} else {
 
             axios.post(extractUser, { token }).then((res) => {
 
-                console.log(res)
+                // console.log(res)
                 if (res.data.user.isAdmin === false) {
                     toast.error('Login with Admin Account')
                     route.push('/')

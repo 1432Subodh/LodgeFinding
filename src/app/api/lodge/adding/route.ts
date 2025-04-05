@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
   try {
 
     const cloudinaryInstance = cloudinaryConfig();
-    // console.log(cloudinaryConfig)
+    // // console.log(cloudinaryConfig)
 
 
     const reqBody = await request.json();
@@ -17,13 +17,13 @@ export async function POST(request: NextRequest) {
 
 
 
-    // console.log(lodgeType)
-    // console.log(base64Images)
+    // // console.log(lodgeType)
+    // // console.log(base64Images)
     const uploadedImages = await Promise.all(
       base64Images.map((base64: string) => cloudinaryInstance.uploader.upload(base64))
     );
     const imageUrls = uploadedImages.map(result => result.secure_url);
-    //   console.log(uploadedImages)
+    //   // console.log(uploadedImages)
 
     const newLodge = new lodgeSchema({
       lodgeName,
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     )
 
     const savedLodge = await newLodge.save()
-    // console.log(savedLodge)
+    // // console.log(savedLodge)
 
 
     return NextResponse.json({

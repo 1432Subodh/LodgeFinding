@@ -46,7 +46,7 @@ export function NavUser() {
     
     (async()=>{
       await axios.post(extractUser, {token}).then((res)=>{
-        console.log(res)
+        // console.log(res)
         setUser(res.data.user)
     })
 
@@ -54,7 +54,7 @@ export function NavUser() {
     // const userString = localStorage.getItem('user')
     // const user = userString ? JSON.parse(userString) : null;
     
-    // console.log(user)
+    // // console.log(user)
   
    
   }, [])

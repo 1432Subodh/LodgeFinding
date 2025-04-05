@@ -3,7 +3,7 @@ import UserData from '@/components/user/user-data'
 
  function page() {
 
-    // console.log(user?.firstname)
+    // // console.log(user?.firstname)
     
     
     

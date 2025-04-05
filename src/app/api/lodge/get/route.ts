@@ -41,7 +41,7 @@ export async function POST(request:NextRequest) {
         })
     } catch (error:any) {
         return NextResponse.json({
-            message: error.message
+            error: error.message
         })
     }
 }

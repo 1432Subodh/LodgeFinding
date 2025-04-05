@@ -16,6 +16,8 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "@/redux/store"
 import { fetchLodgeDetails } from "@/redux/lodgeSlice"
 import { loadGetInitialProps } from "next/dist/shared/lib/utils"
+import toast from "react-hot-toast"
+import { Erica_One } from "next/font/google"
 
 
 export default function LodgePage() {
@@ -24,44 +26,40 @@ export default function LodgePage() {
 
   // Simulate loading
 
-    const dispatch = useDispatch<AppDispatch>();
-    const [dataFetched, setDataFetched] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const [dataFetched, setDataFetched] = useState(false);
 
-    // Select lodges, loading, and error state from Redux store
-    const { lodgeDetails, loading, error }: any = useSelector(
-        (state: RootState) => state.lodgeData,
-        shallowEqual
-    );
-    
+  // Select lodges, loading, and error state from Redux store
+  const { lodgeDetails, loading, error }: any = useSelector(
+    (state: RootState) => state.lodgeData,
+    shallowEqual
+  );
 
-    useEffect(() => {
-      console.log(loading)
-        dispatch(fetchLodgeDetails(id)).finally(() => setDataFetched(true));
-      console.log(loading)
 
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchLodgeDetails(id)).finally(() => setDataFetched(true));
+  }, [dispatch]);
 
-  
 
   return (
-    
+
     <>
 
-    <Header/>
+      <Header />
       <div className="mx-auto px-4 md:px-10 py-6">
         <div className="grid gap-8 md:grid-cols-2">
-          <LodgeGallery images={lodgeDetails.lodge?.images}/>
-          <LodgeDetails 
-          lodgeName= {lodgeDetails.lodge?.lodgeName}
-          roomPrice = {lodgeDetails.lodge?.roomPrice}
-           place = {lodgeDetails.lodge?.place} 
-           state = {lodgeDetails.lodge?.state} 
-           pincode = {lodgeDetails.lodge?.pincode} 
-           city = {lodgeDetails.lodge?.city} 
-           owner = {lodgeDetails.lodge?.owner} 
-           maplink = {lodgeDetails.lodge?.maplink} 
-           description = {lodgeDetails.lodge?.description}
-           lodgeType = {lodgeDetails.lodge?.lodgeType}
+          <LodgeGallery images={lodgeDetails.lodge?.images} />
+          <LodgeDetails
+            lodgeName={lodgeDetails.lodge?.lodgeName}
+            roomPrice={lodgeDetails.lodge?.roomPrice}
+            place={lodgeDetails.lodge?.place}
+            state={lodgeDetails.lodge?.state}
+            pincode={lodgeDetails.lodge?.pincode}
+            city={lodgeDetails.lodge?.city}
+            owner={lodgeDetails.lodge?.owner}
+            maplink={lodgeDetails.lodge?.maplink}
+            description={lodgeDetails.lodge?.description}
+            lodgeType={lodgeDetails.lodge?.lodgeType}
           />
         </div>
         {/* <NearbyAttractions /> */}
@@ -73,7 +71,7 @@ export default function LodgePage() {
         >
           <h2 className="text-2xl font-bold mb-6">Popular Lodges Nearby</h2>
           {/* {lodgeDetails.lodge?._id} */}
-          <PopularLodges id={lodgeDetails.lodge?._id} location = {lodgeDetails.lodge?.place}/>
+          <PopularLodges id={lodgeDetails.lodge?._id} location={lodgeDetails.lodge?.place} />
         </motion.div>
         <ReviewSection />
       </div>

@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 
 export default function LodgeGallery({ images }: { images: string[] }) {
   // Ensure images is always an array
-  const imageList = images?.length ? images : ["/placeholder.svg"];
+  const imageList = images?.length ? images : ["/placeholder.png"];
 
   const [selectedImage, setSelectedImage] = useState(0)
 
@@ -30,7 +30,6 @@ export default function LodgeGallery({ images }: { images: string[] }) {
           priority
         />
         {/* Vignette Effect */}
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0)_40%,_rgba(0,0,0,0.6)_100%)]"></div>
       </motion.div>
 
       {/* Thumbnail Grid */}

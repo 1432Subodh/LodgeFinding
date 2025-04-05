@@ -5,33 +5,32 @@ const initialState = {
     lodges : [],
     lodgeDetails:[],
     populaLodgerNearby:[],
-    loading: false, 
+    loading: true, 
     error: null
 }
 
 export const fetchLodge = createAsyncThunk('lodgeAPI', async(_, { getState })=>{
     const state:any = getState(); // Access the Redux store state
-    console.log(state.lodgeData);
-    const res = await axios.get('/api/lodge/get');
+const res = await axios.get('/api/lodge/get');
     return res.data
 })
 
 export const fetchSearchLodge = createAsyncThunk('SearchAPI', async (search:any)=>{
     const res = await axios.post('/api/lodge/search', {search})
-    console.log(res.data)
+    // console.log(res.data)
     return res.data
 })
 
 export const fetchLodgeDetails = createAsyncThunk('lodgeDetailsAPI', async(id:any)=>{
     const res = await axios.post('/api/lodge/get', {id})
-    // console.log(res)
+    // // console.log(res)
     return res.data
 })
 
 export const fetchPopularLodgeNearby = createAsyncThunk('populaLodgerNearby', async({id, location}:any)=>{
     const res = await axios.post('/api/lodge/popular', {id:id, location:location})
-    console.log(location, id)
-    // console.log(res)
+    // console.log(location, id)
+    // // console.log(res)
     return res.data
 })
 
@@ -39,6 +38,10 @@ const lodgeSlice = createSlice({
     name:"lodge",
     initialState,
     reducers:{
+        removeLodgeDetails: (state)=>{
+            state.lodgeDetails =[];
+            // console.log('hit remove lodge Details')
+        }
 
     },
     extraReducers(builder) {
@@ -46,7 +49,7 @@ const lodgeSlice = createSlice({
             state.loading = true;
         }).addCase(fetchLodge.fulfilled, (state:any, action)=>{
             state.lodges = action.payload.lodges;
-            console.log(state.lodges)
+            // console.log(state.lodges)
             state.loading = false;
         }).addCase(fetchLodge.rejected, (state:any, action)=>{
             state.lodges = action.payload;
@@ -55,8 +58,12 @@ const lodgeSlice = createSlice({
         .addCase(fetchLodgeDetails.pending,(state:any, action)=>{
             state.loading= true;
         }).addCase(fetchLodgeDetails.fulfilled,(state:any, action)=>{
+            if(action.payload.error){
+                state.error = true
+            }
             state.lodgeDetails = action.payload;
-            console.log(state.lodgeDetails)
+            
+            // console.log(state.lodgeDetails)
             state.loading= false;
         }).addCase(fetchLodgeDetails.rejected,(state:any, action)=>{
             state.lodgeDetails = action.payload;
@@ -66,7 +73,7 @@ const lodgeSlice = createSlice({
             state.loading= true;
         }).addCase(fetchPopularLodgeNearby.fulfilled,(state:any, action)=>{
             state.populaLodgerNearby = action.payload;
-            console.log(state.populaLodgerNearby)
+            // console.log(state.populaLodgerNearby)
             state.loading= false;
         }).addCase(fetchPopularLodgeNearby.rejected,(state:any, action)=>{
             state.populaLodgerNearby = action.payload;
@@ -77,7 +84,7 @@ const lodgeSlice = createSlice({
             state.loading= true;
         }).addCase(fetchSearchLodge.fulfilled,(state:any, action)=>{
             state.lodges = action.payload.results;
-            console.log(state.lodges)
+            // console.log(state.lodges)
             state.loading= false;
         }).addCase(fetchSearchLodge.rejected,(state:any, action)=>{
             state.lodges = action.payload;
@@ -85,5 +92,7 @@ const lodgeSlice = createSlice({
         })
     },
 })
+
+export const {removeLodgeDetails}=  lodgeSlice.actions
 
 export default lodgeSlice.reducer

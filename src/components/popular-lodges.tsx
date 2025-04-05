@@ -28,7 +28,7 @@ export function PopularLodges() {
     return () => clearTimeout(timer)
   }, [])
 
-  // console.log(popularLodge)
+  // // console.log(popularLodge)
 
   return (
     <section className="py-8 sm:py-12 bg-muted/50">

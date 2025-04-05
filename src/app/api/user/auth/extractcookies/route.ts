@@ -13,7 +13,7 @@ export async function POST(request: NextRequest){
         const reqBody = await request.json()
         const {token} = reqBody
         
-        console.log(token)
+        // console.log(token)
         
         const decoded:any = jwt.verify(token, process.env.JWT_KEY!)
 

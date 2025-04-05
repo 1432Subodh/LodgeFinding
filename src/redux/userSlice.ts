@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
-import { error } from "console";
 import Cookies from 'js-cookie';
 
 
@@ -13,10 +12,10 @@ const initialState = {
 
 export const fetchUser = createAsyncThunk('userAPI', async () => {
     const token = Cookies.get('token')
-    // console.log(cookieToken)
+    // // console.log(cookieToken)
 
     const res = await axios.post('/api/user/auth/extractcookies', { token })
-    // console.log(res)
+    // // console.log(res)
     return res.data
 })
 
@@ -33,14 +32,14 @@ const userSlice = createSlice({
                 state.error = {
                     message: action.payload.error
                 }
-                console.log('error')
+                // console.log('error')
                 state.loading = false
-                // console.log(state.error)
+                // // console.log(state.error)
             }
             else{
 
                 state.user = action.payload.user
-                // console.log(state.user)
+                // // console.log(state.user)
             }
         }).addCase(fetchUser.rejected, (state: any, action:any) => {
             state.loading = false

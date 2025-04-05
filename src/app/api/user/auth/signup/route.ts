@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
             isVerified: true, firstname, lastname,
         })
         const saved = await newUser.save()
-        console.log(saved)
+        // console.log(saved)
 
         // sending mail : saying for money so I stop this function 
 

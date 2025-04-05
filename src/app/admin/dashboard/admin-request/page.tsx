@@ -37,13 +37,13 @@ function page() {
       setUserReq(res.data.users)
 
 
-    }).then((err: any) => console.log(err))
+    }).then((err: any) => // console.log(err))
   }, [])
 
 
   const actionRequest = async (_id: any, type: any) => {
     const res = await axios.post(Api_actionAdminReq, { _id, type })
-    console.log(res)
+    // console.log(res)
   }
 
 

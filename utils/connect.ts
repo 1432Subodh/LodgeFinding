@@ -10,8 +10,7 @@ export async function connect_db() {
 
         // Attach listeners only once
         connection.on("connected", () => {
-            console.log("✅ DB Connected");
-        });
+});
 
         connection.on("error", (err) => {
             console.error("❌ DB Connection Error:", err);

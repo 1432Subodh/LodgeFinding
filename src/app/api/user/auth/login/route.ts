@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
         })
 
         // const decoded = jwt.verify(token, process.env.JWT_KEY!)
-        // console.log(decoded)
+        // // console.log(decoded)
 
         response.cookies.set('token', token)
         return response

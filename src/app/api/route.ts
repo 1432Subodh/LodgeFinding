@@ -12,7 +12,7 @@ export async function GET(request:NextRequest){
     //     password : '23jakadf'
     // })
     // const savedUser = await newUser.save()
-    // console.log(savedUser)
+    // // console.log(savedUser)
 
     return NextResponse.json({
         message: 'verify'

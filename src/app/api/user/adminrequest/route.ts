@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         const { _id, type } = reqBody
     
         const user = await userSchema.findById(_id)
-        console.log(user)
+        // console.log(user)
     
         if (!user) {
             return NextResponse.json({

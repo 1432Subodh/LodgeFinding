@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "./ui/badge";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
-import { fetchLodgeDetails } from "@/redux/lodgeSlice";
+import { fetchLodgeDetails, removeLodgeDetails } from "@/redux/lodgeSlice";
 
 export function LodgeCard({
   name,
@@ -99,8 +99,8 @@ export function LodgeCard({
               <span className="text-xs sm:text-sm text-muted-foreground">/Month</span>
             </div>
             <Link href={`/lodge/view/${id}`}>
-              <Button size="sm" className="text-xs sm:text-sm">
-                Book Now
+              <Button size="sm" className="text-xs sm:text-sm" onClick={()=>dispatch(removeLodgeDetails())}>
+                View Now
               </Button>
             </Link>
           </div>

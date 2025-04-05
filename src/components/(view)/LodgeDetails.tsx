@@ -25,7 +25,7 @@ export default function LodgeDetails({ lodgeName, roomPrice, place, state, pinco
         </div>
 
         {/* Lodge Type displayed before the lodge name */}
-        
+
 
         <motion.h1
           initial={{ opacity: 0 }}
@@ -72,56 +72,64 @@ export default function LodgeDetails({ lodgeName, roomPrice, place, state, pinco
           </p>
         </div>
 
-        <div className="space-y-2">
-          <h3 className="text-lg font-semibold">Lodge Details</h3>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <motion.li
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8, duration: 0.5 }}
-              className="flex items-center gap-2 capitalize"
-            >
-              <MapPin className="h-4 w-4" />
-              <span>{place}, {city}, {state}, {pincode}</span>
-            </motion.li>
-            <motion.li
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.9, duration: 0.5 }}
-              className="flex items-center gap-2"
-            >
-              <User className="h-4 w-4" />
-              <span>Owned by {owner?.name}</span>
-            </motion.li>
-            <motion.li
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1, duration: 0.5 }}
-              className="flex items-center gap-2"
-            >
-              <Phone className="h-4 w-4" />
-              <a href={`tel:+91${owner?.contact}`} className="text-primary hover:underline">
-                +91 {owner?.contact}
-              </a>
-            </motion.li>
-            <motion.li
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.1, duration: 0.5 }}
-              className="flex items-center gap-2"
-            >
-              <Map className="h-4 w-4" />
-              <a
-                href={maplink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
+
+          <div className="space-y-2 ">
+            <h3 className="text-lg font-semibold">Lodge Details</h3>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <motion.li
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8, duration: 0.5 }}
+                className="flex items-center gap-2 capitalize"
               >
-                View on Google Maps
-              </a>
-            </motion.li>
-          </ul>
-        </div>
+                <MapPin className="h-4 w-4" />
+                <span>{place}, {city}, {state}, {pincode}</span>
+              </motion.li>
+              <motion.li
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.9, duration: 0.5 }}
+                className="flex items-center gap-2"
+              >
+                <User className="h-4 w-4" />
+                <span>Owned by {owner?.name}</span>
+              </motion.li>
+              <motion.li
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1, duration: 0.5 }}
+                className="flex items-center gap-2"
+              >
+                <Phone className="h-4 w-4" />
+                <a href={`tel:+91${owner?.contact}`} className="text-primary hover:underline">
+                  +91 {owner?.contact}
+                </a>
+              </motion.li>
+              <motion.li
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.1, duration: 0.5 }}
+                className="flex items-center gap-2"
+              >
+                <Map className="h-4 w-4" />
+                <a
+                  href={maplink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  View on Google Maps
+                </a>
+              </motion.li>
+            </ul>
+          </div>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d455.6217613445256!2d85.3959004!3d23.996692!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f49d2181d95899%3A0x39191c689743b1e!2sChhotu%20lodge!5e0!3m2!1sen!2sin&layer=t"
+            width="100%"
+            height="250"
+            loading="lazy"
+            className="border-0 mt-5"
+            allowFullScreen></iframe>
 
         <motion.div
           initial={{ opacity: 0, y: 10 }}

@@ -13,9 +13,9 @@ const sendingEmail = async({emailType,hashedToken, email}:any)=>{
         subject: 'Hello World',
         html: `<strong>${emailType} of ${email}</strong>`,
       });
-      console.log(data)
+      // console.log(data)
       if(error){
-        console.log(error)
+        // console.log(error)
       }
 }
 
@@ -24,7 +24,7 @@ export const resendEmail = async({emailType, userId,email}:any)=>{
 
          const hashedToken = await bcryptjs.hash(userId.toString(), 10)
 
-        console.log(hashedToken)
+        // console.log(hashedToken)
         switch (emailType) {
             case 'USER_VERIFY':
                 const user = await userSchema.findOne({email})
@@ -45,7 +45,7 @@ export const resendEmail = async({emailType, userId,email}:any)=>{
 
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
     
       
