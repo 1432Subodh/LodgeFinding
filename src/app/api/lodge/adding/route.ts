@@ -13,17 +13,25 @@ export async function POST(request: NextRequest) {
 
 
     const reqBody = await request.json();
-    const {city, description, place, coordinates, facilities, lodgeType, maplink, base64Images, availableRooms, lodgeName, owner, pincode, roomPrice, state } = reqBody
+    const { city, description, place, coordinates, facilities, htmlMapLink, lodgeType, maplink, images, availableRooms, lodgeName, owner, pincode, roomPrice, state } = reqBody
 
 
+    console.log('asdf')
+      const uploadedImages = await Promise.all(
+        images.map((base64: string) => cloudinaryInstance.uploader.upload(base64,{
+          transformation: [
+            { width: 1200, height: 900, crop: "limit" },
+            { quality: "auto" },
+            { fetch_format: "auto" }
+          ]
+        }, function(error, result) {
+          console.log(result);
+        }))
+      );
+      const imageUrls = uploadedImages.map(result => result.secure_url);
+      console.log(imageUrls)
+ 
 
-    // // console.log(lodgeType)
-    // // console.log(base64Images)
-    const uploadedImages = await Promise.all(
-      base64Images.map((base64: string) => cloudinaryInstance.uploader.upload(base64))
-    );
-    const imageUrls = uploadedImages.map(result => result.secure_url);
-    //   // console.log(uploadedImages)
 
     const newLodge = new lodgeSchema({
       lodgeName,
@@ -33,19 +41,14 @@ export async function POST(request: NextRequest) {
       pincode,
       lodgeType,
       maplink: maplink,
+      htmlMapLink,
       coordinates: {
         lat: coordinates.lat,
         lng: coordinates.lng
       },
       roomPrice,
-      roomPriceText : roomPrice.toString(),
-      facilities: {
-        wifi: true,
-        parking: false,
-        foodAvailable: false,
-        airConditioning: true,
-        laundryService: false,
-      },
+      roomPriceText: roomPrice.toString(),
+      facilities,
       owner: {
         name: owner.name,
         contact: owner.contact,
@@ -53,22 +56,26 @@ export async function POST(request: NextRequest) {
       },
       availableRooms,
       images: imageUrls, // Store image URLs or base64 strings
+      thumbnailImage: imageUrls[0],
       description,
       // base64Images: { type: [String], default: [] },
     }
     )
 
+    // "lodges validation failed: owner.email: Path `owner.email` is required., owner.contact: Path `owner.contact` is required., owner.name: Path `owner.name` is required."
+
+    // console.log(newLodge)
     const savedLodge = await newLodge.save()
-    // // console.log(savedLodge)
 
 
     return NextResponse.json({
-      message: "error.message",
-      // imageUrls
+      savedLodge,
+      success: true
     })
   } catch (error: any) {
     return NextResponse.json({
-      message: error.message
+      message: error.message,
+      
     })
   }
 

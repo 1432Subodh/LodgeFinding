@@ -1,10 +1,10 @@
-import AddLodgeForm from '@/components/lodges/form/AddLodgeForm'
+import LodgeForm from '@/components/form/AddingForm'
 import React from 'react'
 
 function page() {
   return (
     <>
-    <AddLodgeForm/>
+      <LodgeForm/>
     </>
   )
 }

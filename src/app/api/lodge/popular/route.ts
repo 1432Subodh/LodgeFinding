@@ -35,7 +35,8 @@ export async function POST(request: NextRequest) {
             { score: { $meta: "textScore" } } // Include score
         )
             .sort({ score: { $meta: "textScore" } }) // Sort by relevance
-            .select("lodgeName place city state roomPrice availableRooms images score");
+            .select("lodgeName place city state roomPrice availableRooms images score")
+            .limit(3)
 
         return NextResponse.json({
             message: 'lodge found',

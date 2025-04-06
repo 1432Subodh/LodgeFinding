@@ -28,7 +28,7 @@ export function LodgeCard({
   baths: number;
   price: number;
   image?: string;
-  lodgeType?: string;
+  lodgeType: string;
 }) {
 
   const dispatch = useDispatch<AppDispatch>();
@@ -69,7 +69,7 @@ export function LodgeCard({
           <div>
             <div className="flex justify-between items-start mb-1 sm:mb-0">
               <h3 className="font-semibold text-sm sm:text-base line-clamp-1">
-                {name}
+                {name} 
               </h3>
               <div className="flex items-center">
                 <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-primary text-primary" />
@@ -78,7 +78,7 @@ export function LodgeCard({
             </div>
 
             <p className="text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-2 line-clamp-2 capitalize">
-              {location}
+              {location.replace(', Jharkhand', "")}
             </p>
           </div>
 

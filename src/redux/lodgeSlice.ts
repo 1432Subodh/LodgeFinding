@@ -17,7 +17,7 @@ const res = await axios.get('/api/lodge/get');
 
 export const fetchSearchLodge = createAsyncThunk('SearchAPI', async (search:any)=>{
     const res = await axios.post('/api/lodge/search', {search})
-    // console.log(res.data)
+    console.log(res)
     return res.data
 })
 

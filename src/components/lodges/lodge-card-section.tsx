@@ -6,6 +6,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { LodgeCard, LodgeCardSkeleton } from '../lodge-card';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 function LodgeCardSection() {
     const dispatch = useDispatch<AppDispatch>();
@@ -20,7 +21,6 @@ function LodgeCardSection() {
         (state: RootState) => state.lodgeData,
         shallowEqual
     );
-    // // console.log(lodges)
 
     useEffect(() => {
         if (search) {
@@ -29,16 +29,22 @@ function LodgeCardSection() {
         } else {
             dispatch(fetchLodge()).finally(() => setDataFetched(true));
         }
-    }, [dispatch]);
+    }, [search, dispatch]);
 
     return (
         <div className="sm:p-6 p-3">
             <div className="mb-6">
-                <Tabs defaultValue="all">
+                <Tabs defaultValue={search === 'boys' ? 'boys' : search === 'girls' ? 'girls' : 'all'}>
                     <TabsList>
-                        <TabsTrigger value="all">All Lodges</TabsTrigger>
-                        <TabsTrigger value="boys">Boys</TabsTrigger>
-                        <TabsTrigger value="girls">Girls</TabsTrigger>
+                        <Link href={'/lodge'}>
+                            <TabsTrigger value="all">All Lodges</TabsTrigger>
+                        </Link>
+                        <Link href={'/lodge?search=boys'}>
+                            <TabsTrigger value="boys" >Boys</TabsTrigger>
+                        </Link>
+                        <Link href={'/lodge?search=girls'}>
+                            <TabsTrigger value="girls">Girls</TabsTrigger>
+                        </Link>
                     </TabsList>
                 </Tabs>
             </div>
@@ -46,16 +52,16 @@ function LodgeCardSection() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 ">
                 {
                     loading ? (Array.from({ length: 4 }).map((_, index) => <LodgeCardSkeleton key={index} />)) : (
-                        lodges.length === 0 ? (dataFetched ? <div className="text-zinc-500 text-center col-span-full">Lodge Not Found</div>
+                        lodges?.length === 0 ? (dataFetched ? <div className="text-zinc-500 text-center col-span-full">Lodge Not Found</div>
                             : <div className="text-gray-500 col-span-full text-center w-100">
                                 <div className="flex items-center justify-center h-[70vh]">
                                     <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                                 </div>
-                            </div>) : lodges.map((lodge: any, index: any) => (
+                            </div>) : lodges?.map((lodge: any, index: any) => (
                                 <LodgeCard key={index} name={lodge?.lodgeName}
                                     price={lodge.roomPrice}
                                     location={`${lodge.place}, ${lodge.city}, ${lodge.state}`}
-                                    image={lodge.images[0]}
+                                    image={lodge.images[0] || lodge.thumbnailImage}
                                     rating={3}
                                     beds={2}
                                     baths={2}

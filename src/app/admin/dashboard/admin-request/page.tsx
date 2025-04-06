@@ -37,7 +37,8 @@ function page() {
       setUserReq(res.data.users)
 
 
-    }).then((err: any) => // console.log(err))
+    }).then((err: any) => 
+      console.log(err))
   }, [])
 
 
