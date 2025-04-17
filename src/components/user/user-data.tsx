@@ -13,6 +13,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { fetchUser } from "@/redux/userSlice";
 import axios from "axios";
+import { Skeleton } from "../ui/skeleton";
 
 function UserData() {
     const [isLogin, setIsLogin] = useState(true);
@@ -51,6 +52,8 @@ function UserData() {
                         <div className="w-6 h-6 border-[2px] border-primary border-t-transparent rounded-full animate-spin"></div>
                     </AvatarFallback>
                 </Avatar>
+                // <Skeleton className="h-[36px] w-[63px] " />
+
             ) : (
                 <Link href={"/login"}>
                     <Button variant={"outline"} size={"sm"}>

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import cloudinaryConfig from "../../../../../utils/cloudinary";
 import lodgeSchema from "../../../../../models/LodgeModel";
 import { connect_db } from "../../../../../utils/connect";
+import userSchema from "../../../../../models/UserModel";
 
 
 connect_db()
@@ -13,8 +14,18 @@ export async function POST(request: NextRequest) {
 
 
     const reqBody = await request.json();
-    const { city, description, place, coordinates, facilities, htmlMapLink, lodgeType, maplink, images, availableRooms, lodgeName, owner, pincode, roomPrice, state } = reqBody
+    const { city, description, place, coordinates, facilities, maxPeople, htmlMapLink, user, lodgeType, maplink, images, availableRooms, lodgeName, owner, pincode, roomPrice, state } = reqBody
+    console.log(maxPeople)
 
+
+    
+    const isUser:any = await userSchema.findById({_id: user})
+    
+    if(!isUser){
+      return NextResponse.json({
+        message: 'creating user not found'
+      })
+    }
 
     console.log('asdf')
       const uploadedImages = await Promise.all(
@@ -25,11 +36,13 @@ export async function POST(request: NextRequest) {
             { fetch_format: "auto" }
           ]
         }, function(error, result) {
-          console.log(result);
+          // console.log(result);
         }))
       );
       const imageUrls = uploadedImages.map(result => result.secure_url);
-      console.log(imageUrls)
+      
+
+      // console.log(isUser)
  
 
 
@@ -46,6 +59,7 @@ export async function POST(request: NextRequest) {
         lat: coordinates.lat,
         lng: coordinates.lng
       },
+      maxPeople,
       roomPrice,
       roomPriceText: roomPrice.toString(),
       facilities,
@@ -65,7 +79,12 @@ export async function POST(request: NextRequest) {
     // "lodges validation failed: owner.email: Path `owner.email` is required., owner.contact: Path `owner.contact` is required., owner.name: Path `owner.name` is required."
 
     // console.log(newLodge)
+    
+    
     const savedLodge = await newLodge.save()
+    isUser.userLodge.push(savedLodge._id)
+    await isUser.save()
+    console.log(savedLodge)
 
 
     return NextResponse.json({
@@ -76,7 +95,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       message: error.message,
       
-    })
+    },{status: 401})
   }
 
 }

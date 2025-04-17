@@ -33,8 +33,8 @@ function BasicInfo() {
                     <Input id="roomPrice" name="roomPrice" type="number" placeholder="Price in INR" required />
                 </div>
                 <div className="space-y-1">
-                    <Label htmlFor="roomPriceText">Price Description</Label>
-                    <Input id="roomPriceText" name="roomPriceText" placeholder="e.g. Starting from" required />
+                    <Label htmlFor="roomPriceText">Max People in Room</Label>
+                    <Input id="roomPriceText" name="maxPeople" placeholder="e.g. Starting from" required />
                 </div>
             </div>
 
@@ -54,12 +54,12 @@ function BasicInfo() {
                     </div>
                     <div className="space-y-1">
                         <Label htmlFor="owner.contact">Contact Number <span className="text-red-500">*</span></Label>
-                        <Input id="owner.contact" name="owner.contact" placeholder="Phone number" required />
+                        <Input id="owner.contact" name="owner.contact" placeholder="Phone number" />
                     </div>
                 </div>
                 <div className="space-y-1">
                     <Label htmlFor="owner.email">Email Address <span className="text-red-500">*</span></Label>
-                    <Input id="owner.email" name="owner.email" type="email" placeholder="Email address" required />
+                    <Input id="owner.email" name="owner.email" type="email" placeholder="Email address" />
                 </div>
             </div></>
     )

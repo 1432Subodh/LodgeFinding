@@ -12,7 +12,7 @@ const initialState = {
 
 export const fetchUser = createAsyncThunk('userAPI', async () => {
     const token = Cookies.get('token')
-    // // console.log(cookieToken)
+   
 
     const res = await axios.post('/api/user/auth/extractcookies', { token })
     // // console.log(res)

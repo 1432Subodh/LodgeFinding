@@ -60,6 +60,7 @@ export default function LodgePage() {
             maplink={lodgeDetails.lodge?.maplink}
             description={lodgeDetails.lodge?.description}
             lodgeType={lodgeDetails.lodge?.lodgeType}
+            htmlMapLink= {lodgeDetails.lodge?.htmlMapLink}
           />
         </div>
         {/* <NearbyAttractions /> */}

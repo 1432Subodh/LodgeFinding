@@ -19,10 +19,12 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
 
+    
+
     // Allow the request to continue if conditions are met
     return NextResponse.next();
 }
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/login' , '/user/profile', '/admin/dashboard'],
+  matcher: ['/login' , '/profile', '/admin/dashboard'],
 }

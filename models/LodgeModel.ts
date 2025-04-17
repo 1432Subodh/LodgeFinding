@@ -14,6 +14,10 @@ const lodgeSchemaDef = new mongoose.Schema({
         lat: { type: Number, default: 0 },
         lng: { type: Number, default: 0 },
     },
+    maxPeople:{
+        type: String,
+        require: true
+    },
     roomPrice: { type: Number },
     roomPriceText: { type: String },
     facilities: {

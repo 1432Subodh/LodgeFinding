@@ -26,6 +26,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import axios from "axios"
+import UserData from "../user/user-data"
 
 // This is sample data.
 const data = {
@@ -169,6 +170,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
+        <UserData/>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

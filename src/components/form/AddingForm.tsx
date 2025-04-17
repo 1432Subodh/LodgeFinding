@@ -12,10 +12,18 @@ import { useState } from "react";
 import { Api_addingLodge, convertingImgToBase64 } from "../../../helper/helper";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { shallowEqual, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export default function LodgeForm() {
 
   const [isDisable, setIsDisable] = useState(false)
+
+  const { user, loading }: any = useSelector(
+    (state: RootState) => state.user,
+    shallowEqual
+);
+
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -30,6 +38,8 @@ export default function LodgeForm() {
       imagesArray = []
     }
 
+    console.log(imagesArray)
+
     const imageUrls = await convertingImgToBase64([thumbnailImage,  ...imagesArray]);
     // Basic Information
     const lodgeName = formData.get("lodgeName");
@@ -40,12 +50,13 @@ export default function LodgeForm() {
     const lodgeType = formData.get("lodgeType");
     const roomPrice = Number(formData.get("roomPrice"));
     const availableRooms = Number(formData.get("availableRooms"));
+    const maxPeople = formData.get('maxPeople')
   
     // Location
     const maplink = formData.get("maplink");
     const htmlMapLink = formData.get("htmlMapLink");
-    const lat = parseFloat(formData.get("coordinates.lat") as string);
-    const lng = parseFloat(formData.get("coordinates.lng") as string);
+    // const lat = parseFloat(formData.get("coordinates.lat") as string);
+    // const lng = parseFloat(formData.get("coordinates.lng") as string);
   
     // Amenities (ensure these are checkboxes with proper names)
     const wifi = formData.get("facilities.wifi")=== "on";
@@ -56,8 +67,8 @@ export default function LodgeForm() {
   
     // Owner
     const ownerName = formData.get("owner.name");
-    const ownerContact = formData.get("owner.contact");
-    const ownerEmail = formData.get("owner.email");
+    const ownerContact = formData.get("owner.contact") || 'NA';
+    const ownerEmail = formData.get("owner.email") || 'NA';
   
     // Description
     const description = formData.get("description");
@@ -72,10 +83,10 @@ export default function LodgeForm() {
       lodgeType,
       maplink,
       htmlMapLink,
-      coordinates: {
-        lat,
-        lng
-      },
+      // coordinates: {
+      //   lat,
+      //   lng
+      // },
       roomPrice,
       roomPriceText: roomPrice.toString(),
       facilities: {
@@ -92,13 +103,15 @@ export default function LodgeForm() {
       },
       availableRooms,
       images: imageUrls, 
-      description
+      description,
+      user: user._id,
+      maxPeople
     };
     console.log(lodgeData)
 
 
     toast.promise(
-      axios.post(Api_addingLodge, lodgeData),
+      axios.post(Api_addingLodge, lodgeData).then((re)=>console.log(re)),
        {
          loading: 'Saving...',
          success: <b>Lodge Created!</b>,

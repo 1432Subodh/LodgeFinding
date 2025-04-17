@@ -32,11 +32,11 @@ function Location() {
             </div>
 
             <div className="space-y-1">
-                <Label htmlFor="htmlMapLink">Embeddable Map Link <span className="text-red-500">*</span></Label>
+                <Label htmlFor="htmlMapLink">Embeddable Map Link (Latitude & Longitude) <span className="text-red-500">*</span></Label>
                 <Input id="htmlMapLink" name="htmlMapLink" placeholder="HTML iframe embed code from Google Maps" required />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                     <Label htmlFor="coordinates.lat">Latitude</Label>
                     <Input id="coordinates.lat" name="coordinates.lat" type="number" step="0.000001" placeholder="Latitude coordinate" defaultValue="0" />
@@ -45,7 +45,7 @@ function Location() {
                     <Label htmlFor="coordinates.lng">Longitude</Label>
                     <Input id="coordinates.lng" name="coordinates.lng" type="number" step="0.000001" placeholder="Longitude coordinate" defaultValue="0" />
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }
