@@ -105,7 +105,7 @@ export default function ReviewsPage() {
   )
 }
 
-function ReviewCard({ review, type }) {
+function ReviewCard({ review, type }:any) {
   const isReceived = type === "received"
 
   return (

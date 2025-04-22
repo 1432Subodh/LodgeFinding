@@ -159,7 +159,7 @@ function HostBookings() {
   )
 }
 
-function BookingCard({ booking, userType }) {
+function BookingCard({ booking, userType }:any) {
   const isHost = userType === "host"
   const isPending = booking.status === "pending"
 
