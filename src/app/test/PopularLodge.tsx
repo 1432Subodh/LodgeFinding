@@ -69,17 +69,17 @@ export default function PopularLodge() {
       </div>
 
 
-      <div className="flex h-full items-center justify-center px-4 md:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-7xl">
+      <div className="flex flex-wrap p-4 sm:h-full sm:justify-center sm:items-center ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-7xl">
           {/* Left Side - Lodge Image */}
-          <div className="relative h-96 md:h-full rounded-2xl overflow-hidden shadow-2xl">
+          <div className="relative h-52 sm:h-96 md:h-full rounded-2xl overflow-hidden shadow-2xl">
             <div className="absolute inset-0 bg-black bg-opacity-20 z-10"></div>
-            <div className="absolute bottom-6 left-6 z-20 flex space-x-3">
+            <div className="absolute bottom-6 left-6 z-20  flex space-x-3">
               {popularLodges.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${activeIndex === index
+                  className={`w-3 h-3 rounded-full transition-all  ${activeIndex === index
                       ? 'bg-white w-8'
                       : 'bg-white bg-opacity-60 hover:bg-opacity-90'
                     }`}
@@ -108,7 +108,7 @@ export default function PopularLodge() {
             {/* Navigation arrows */}
             <button
               onClick={handlePrev}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-40 hover:bg-opacity-60 text-white p-3 rounded-full z-20 transition-all"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-5 hover:bg-opacity-10 text-white p-3 rounded-full z-20 transition-all"
               aria-label="Previous lodge"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -117,7 +117,7 @@ export default function PopularLodge() {
             </button>
             <button
               onClick={handleNext}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-40 hover:bg-opacity-60 text-white p-3 rounded-full z-20 transition-all"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-5 hover:bg-opacity-60 text-white p-3 rounded-full z-20 transition-all"
               aria-label="Next lodge"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -127,7 +127,7 @@ export default function PopularLodge() {
           </div>
 
           {/* Right Side - Lodge Details */}
-          <div className="flex flex-col justify-center p-6 md:p-12 dark:bg-zinc-900 bg-zinc-100 rounded-2xl shadow-lg">
+          <div className="flex flex-col justify-center h-full p-6 md:p-12 dark:bg-zinc-900 bg-zinc-100 rounded-2xl shadow-lg">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm uppercase tracking-wider text-gray-500 dark:text-gray-200 font-medium">Featured Lodge</span>
               <div className="flex items-center">
@@ -138,8 +138,8 @@ export default function PopularLodge() {
               </div>
             </div>
 
-            <h3 className="text-3xl font-bold  mb-2">{activeLodge.name}</h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-6 flex items-center">
+            <h3 className="sm:text-3xl text-xl font-bold  mb-1">{activeLodge.name}</h3>
+            <p className="text-gray-600 dark:text-gray-300 mb-4 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -147,10 +147,10 @@ export default function PopularLodge() {
               {activeLodge.location}
             </p>
 
-            <p className="text-gray-700 dark:text-gray-400 mb-8">{activeLodge.description}</p>
+            <p className="text-gray-700 dark:text-gray-400 mb-3">{activeLodge.description}</p>
 
-            <div className="mb-8">
-              <h4 className="font-semibold text-gray-900 mb-3">Amenities</h4>
+            <div className="mb-4">
+              <h4 className="font-semibold text-gray-900 dark:text-gray-400 mb-3">Amenities</h4>
               <div className="flex flex-wrap gap-2">
                 {activeLodge.amenities.map((amenity, index) => (
                   <span key={index} className="px-3 py-1 bg-teal-50 text-teal-700 rounded-full text-sm">

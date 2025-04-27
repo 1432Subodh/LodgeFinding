@@ -22,14 +22,14 @@ export default function Hero() {
       id: 1,
       name: "Alpine Retreat",
       location: "Aspen, Colorado",
-      videoUrl: "/video/1.webm", // Replace with actual video paths
+      videoUrl: "/video/01.mp4", // Replace with actual video paths
       description: "Experience luxury in the heart of the mountains",
     },
     {
       id: 2,
       name: "Lakeside Haven",
       location: "Lake Tahoe, Nevada",
-      videoUrl: "/video/2.mp4",
+      videoUrl: "/video/02.mp4",
       description: "Tranquil waterfront lodging with panoramic views",
     },
     {
@@ -104,7 +104,7 @@ export default function Hero() {
                 videoRefs.current[index] = el;
               }}
               className="object-cover w-full h-full"
-              src={lodge.videoUrl}
+              src={lodge.videoUrl|| '/video/02.mp4'}
               muted
               loop
               playsInline
@@ -116,7 +116,7 @@ export default function Hero() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative h-[90%] flex flex-col items-center justify-center px-4 text-center text-white z-10">
+      <div className="relative h-[95%] sm:h-full flex flex-col items-center justify-center px-4 text-center text-white z-10">
         <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
           Find Your Perfect <span className="text-teal-400">Lodge</span>
         </h1>
@@ -177,11 +177,7 @@ export default function Hero() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer" onClick={scrollToPopular}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
+       
       </div>
     </div>
   );
