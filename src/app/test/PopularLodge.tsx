@@ -72,7 +72,7 @@ export default function PopularLodge() {
       <div className="flex flex-wrap p-4 sm:h-full sm:justify-center sm:items-center ">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-7xl">
           {/* Left Side - Lodge Image */}
-          <div className="relative h-52 sm:h-96 md:h-full rounded-2xl overflow-hidden shadow-2xl">
+          <div className="relative h-52 sm:h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
             <div className="absolute inset-0 bg-black bg-opacity-20 z-10"></div>
             <div className="absolute bottom-6 left-6 z-20  flex space-x-3">
               {popularLodges.map((_, index) => (

@@ -11,7 +11,7 @@ interface Lodge {
   description: string;
 }
 
-export default function Hero() {
+export default function Hero({ setIsLoading }: { setIsLoading: (loading: boolean) => void }) {
   const [currentVideo, setCurrentVideo] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -43,6 +43,24 @@ export default function Hero() {
 
   // Handle video playback control for the current video
   useEffect(() => {
+    // console.log(videoRefs.current[0])
+    
+    const video = videoRefs.current[0];
+
+    if (video) {
+      console.log("Video readyState:", video.readyState);
+
+      if (video.readyState >= 3) {
+        console.log("Video is loaded!");
+        setIsLoading(false)
+
+      } else {
+        console.log("Video is NOT loaded yet.");
+      }
+    }
+
+
+
     // Pause all videos first
     videoRefs.current.forEach((video) => {
       if (video) {
