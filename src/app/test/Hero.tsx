@@ -11,7 +11,11 @@ interface Lodge {
   description: string;
 }
 
-export default function Hero({ setIsLoading }: { setIsLoading: (loading: boolean) => void }) {
+export default function Hero({
+  setIsLoading,
+}: {
+  setIsLoading: (loading: boolean) => void;
+}) {
   const [currentVideo, setCurrentVideo] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -32,57 +36,71 @@ export default function Hero({ setIsLoading }: { setIsLoading: (loading: boolean
       videoUrl: "/video/02.mp4",
       description: "Tranquil waterfront lodging with panoramic views",
     },
-    {
-      id: 3,
-      name: "Forest Sanctuary",
-      location: "Redwood Forest, California",
-      videoUrl: "/video/3.mp4",
-      description: "Immerse yourself in nature's embrace",
-    },
+    // {
+    //   id: 3,
+    //   name: "Forest Sanctuary",
+    //   location: "Redwood Forest, California",
+    //   videoUrl: "/video/3.mp4",
+    //   description: "Immerse yourself in nature's embrace",
+    // },
   ];
 
   // Handle video playback control for the current video
   useEffect(() => {
     // console.log(videoRefs.current[0])
-    
+
     const video = videoRefs.current[0];
 
     if (video) {
-      console.log("Video readyState:", video.readyState);
-
       if (video.readyState >= 3) {
-        console.log("Video is loaded!");
-        setIsLoading(false)
-
+        // Already ready
+        console.log("Video readyState:", video.readyState);
+        setIsLoading(false);
       } else {
-        console.log("Video is NOT loaded yet.");
+        // Wait for it to become ready
+        video.addEventListener("canplay", () => {
+          console.log("Video is loaded!");
+          setIsLoading(false);
+        });
       }
     }
 
-
-
     // Pause all videos first
-    videoRefs.current.forEach((video) => {
-      if (video) {
+    // videoRefs.current.forEach((video) => {
+    //   if (video) {
+    //     video.pause();
+    //   }
+    // });
+
+    // Get the currently active video
+    const currentVideoElement = videoRefs.current[currentVideo];
+
+    if (currentVideoElement) {
+      currentVideoElement.muted = true;
+      currentVideoElement.currentTime = 0;
+
+      const playPromise = currentVideoElement.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            // console.log("Video playing successfully.");
+            setIsLoading(false); // If needed
+          })
+          .catch((err) => {
+            console.warn("Play was prevented. Handling gracefully.", err);
+            // Maybe show a fallback UI if autoplay is blocked
+            setIsLoading(false);
+          });
+      }
+    }
+
+    // Pause all *other* videos
+    videoRefs.current.forEach((video, index) => {
+      if (video && index !== currentVideo) {
         video.pause();
       }
     });
-
-    // Play only the current video if isPlaying is true
-    const currentVideoElement = videoRefs.current[currentVideo];
-    if (currentVideoElement && isPlaying) {
-      // Ensure autoplay for background videos (important for mobile browsers)
-      currentVideoElement.muted = true;  // Make sure it is muted for autoplay
-      currentVideoElement.currentTime = 0;
-      
-      // Play the video and catch any errors related to autoplay
-      currentVideoElement
-        .play()
-        .catch((err) => {
-          // If autoplay is blocked, show a user-friendly message or take action
-          console.error("Video play error:", err);
-        });
-    }
   }, [currentVideo, isPlaying]);
 
   // Auto-rotate videos every 8 seconds
@@ -102,12 +120,14 @@ export default function Hero({ setIsLoading }: { setIsLoading: (loading: boolean
 
   // Smooth scroll to Popular Lodges section
   const scrollToPopular = () => {
-    document.getElementById("popular-lodges")?.scrollIntoView({ behavior: "smooth" });
+    document
+      .getElementById("popular-lodges")
+      ?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <div className="relative h-screen w-full overflow-hidden snap-start">
-      <Header/>
+      <Header />
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full">
         {featuredLodges.map((lodge, index) => (
@@ -122,7 +142,7 @@ export default function Hero({ setIsLoading }: { setIsLoading: (loading: boolean
                 videoRefs.current[index] = el;
               }}
               className="object-cover w-full h-full"
-              src={lodge.videoUrl|| '/video/02.mp4'}
+              src={lodge.videoUrl || "/video/02.mp4"}
               muted
               loop
               playsInline
@@ -158,7 +178,9 @@ export default function Hero({ setIsLoading }: { setIsLoading: (loading: boolean
         {/* Lodge Info & Video Controls */}
         <div className="absolute bottom-10 left-0 right-0 flex flex-col md:flex-row items-center justify-between px-6 md:px-16">
           <div className="mb-4 md:mb-0">
-            <h2 className="text-2xl font-bold">{featuredLodges[currentVideo].name}</h2>
+            <h2 className="text-2xl font-bold">
+              {featuredLodges[currentVideo].name}
+            </h2>
             <p className="text-lg">{featuredLodges[currentVideo].location}</p>
           </div>
 
@@ -168,13 +190,42 @@ export default function Hero({ setIsLoading }: { setIsLoading: (loading: boolean
               className="p-3 rounded-full bg-white bg-opacity-20 hover:bg-opacity-30 transition-all"
             >
               {isPlaying ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               )}
             </button>
@@ -185,8 +236,11 @@ export default function Hero({ setIsLoading }: { setIsLoading: (loading: boolean
                 <button
                   key={index}
                   onClick={() => setCurrentVideo(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${currentVideo === index ? "bg-teal-400 w-6" : "bg-white bg-opacity-50 hover:bg-opacity-80"
-                    }`}
+                  className={`w-3 h-3 rounded-full transition-all ${
+                    currentVideo === index
+                      ? "bg-teal-400 w-6"
+                      : "bg-white bg-opacity-50 hover:bg-opacity-80"
+                  }`}
                   aria-label={`View lodge ${index + 1}`}
                 />
               ))}
@@ -195,7 +249,6 @@ export default function Hero({ setIsLoading }: { setIsLoading: (loading: boolean
         </div>
 
         {/* Scroll indicator */}
-       
       </div>
     </div>
   );
