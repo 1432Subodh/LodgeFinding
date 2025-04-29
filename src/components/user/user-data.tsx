@@ -56,7 +56,7 @@ function UserData() {
 
             ) : (
                 <Link href={"/login"}>
-                    <Button variant={"outline"} size={"sm"}>
+                    <Button variant={'default'} className="rounded-full px-6 py-4" size={"sm"}>
                         Login
                     </Button>
                 </Link>
@@ -66,9 +66,9 @@ function UserData() {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="relative w-9 h-9 rounded-full">
-                            <Avatar className="w-9 h-9">
+                            <Avatar className="w-9 h-9 ">
                                 <AvatarImage src="/placeholder-user.jpg" alt="User" />
-                                <AvatarFallback className="uppercase">
+                                <AvatarFallback className="uppercase bg-[#14b8a57b] text-white">
                                     {user?.firstname?.charAt(0)}
                                 </AvatarFallback>
                             </Avatar>

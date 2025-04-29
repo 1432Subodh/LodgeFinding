@@ -1,14 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { 
-  Sheet, 
-  SheetContent, 
+import {
+  Sheet,
+  SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetTrigger 
+  SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
+import UserData from "@/components/user/user-data";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -31,9 +33,9 @@ export default function Header() {
 
   return (
     <header
-      className={`absolute w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-black bg-opacity-90 shadow-lg py-3"
+          ? "bg-black bg-opacity-60 shadow-lg py-3"
           : "bg-transparent py-5"
       }`}
     >
@@ -47,32 +49,32 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="text-white hover:text-teal-400 transition-colors duration-300"
           >
             Home
           </Link>
-          <Link 
-            href="/lodges" 
+          <Link
+            href="/lodges"
             className="text-white hover:text-teal-400 transition-colors duration-300"
           >
             Lodges
           </Link>
-          <Link 
-            href="/destinations" 
+          <Link
+            href="/destinations"
             className="text-white hover:text-teal-400 transition-colors duration-300"
           >
             Destinations
           </Link>
-          <Link 
-            href="/about" 
+          <Link
+            href="/about"
             className="text-white hover:text-teal-400 transition-colors duration-300"
           >
             About Us
           </Link>
-          <Link 
-            href="/contact" 
+          <Link
+            href="/contact"
             className="text-white hover:text-teal-400 transition-colors duration-300"
           >
             Contact
@@ -81,18 +83,9 @@ export default function Header() {
 
         {/* Right Side - Auth & Book buttons */}
         <div className="hidden md:flex items-center space-x-4">
-          <Link 
-            href="/login" 
-            className="text-white hover:text-teal-400 transition-colors duration-300"
-          >
-            Login
-          </Link>
-          <Button 
-            asChild
-            className="bg-teal-500 hover:bg-teal-600 rounded-full text-white font-medium transition-colors duration-300"
-          >
-            <Link href="/book-now">Book Now</Link>
-          </Button>
+          <ThemeToggle />
+
+          <UserData />
         </div>
 
         {/* Mobile Menu with shadcn Sheet component */}
@@ -100,57 +93,71 @@ export default function Header() {
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" className="p-0 text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="bg-black text-white w-64 sm:w-80">
+            <SheetContent
+              side="right"
+              className="bg-black text-white w-64 sm:w-80"
+            >
               <SheetHeader>
                 <SheetTitle className="text-white text-left">
                   Lodge<span className="text-teal-400">Finder</span>
                 </SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col mt-8 space-y-4">
-                <Link 
-                  href="/" 
+                <Link
+                  href="/"
                   className="text-white hover:text-teal-400 py-2 transition-colors duration-300"
                 >
                   Home
                 </Link>
-                <Link 
-                  href="/lodges" 
+                <Link
+                  href="/lodges"
                   className="text-white hover:text-teal-400 py-2 transition-colors duration-300"
                 >
                   Lodges
                 </Link>
-                <Link 
-                  href="/destinations" 
+                <Link
+                  href="/destinations"
                   className="text-white hover:text-teal-400 py-2 transition-colors duration-300"
                 >
                   Destinations
                 </Link>
-                <Link 
-                  href="/about" 
+                <Link
+                  href="/about"
                   className="text-white hover:text-teal-400 py-2 transition-colors duration-300"
                 >
                   About Us
                 </Link>
-                <Link 
-                  href="/contact" 
+                <Link
+                  href="/contact"
                   className="text-white hover:text-teal-400 py-2 transition-colors duration-300"
                 >
                   Contact
                 </Link>
                 <div className="pt-4 mt-4 border-t border-gray-700">
-                  <Link 
-                    href="/login" 
+                  <Link
+                    href="/login"
                     className="text-white hover:text-teal-400 py-2 transition-colors duration-300 block mb-4"
                   >
                     Login
                   </Link>
-                  <Button 
+                  <Button
                     asChild
                     className="w-full bg-teal-500 hover:bg-teal-600 rounded-full text-white font-medium transition-colors duration-300"
                   >

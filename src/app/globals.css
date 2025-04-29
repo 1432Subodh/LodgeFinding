@@ -13,7 +13,7 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 346.8 77.2% 49.8%;
+    --primary: 172.1 79.4% 40.4%;;
     --primary-foreground: 355.7 100% 97.3%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -25,7 +25,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 346.8 77.2% 49.8%;
+    --ring: 172.1 79.4% 40.4%;;
     --radius: 0.5rem;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
@@ -49,7 +49,7 @@
     --card-foreground: 0 0% 95%;
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 95%;
-    --primary: 346.8 77.2% 49.8%;
+    --primary: 172.1 79.4% 40.4%;;
     --primary-foreground: 355.7 100% 97.3%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -61,7 +61,7 @@
     --destructive-foreground: 0 85.7% 97.3%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 346.8 77.2% 49.8%;
+    --ring: 172.1 79.4% 40.4%;;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -135,4 +135,26 @@
 .animate-fade-in-delay-2 {
   animation: fadeInMoreDelayed 2s ease-in-out forwards;
 }
+
+/* Apply globally or to a specific element */
+::-webkit-scrollbar {
+  width: 1px;      /* vertical scrollbar */
+  height: 1px;     /* horizontal scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: gray; /* thumb color */
+  border-radius: 0;       /* no rounding */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* track is invisible */
+}
+
+/* Firefox support */
+* {
+  scrollbar-width: calc(1px);             /* Makes it thinner */
+  scrollbar-color: #14b8a57b; /* thumb and track */
+}
+
 
