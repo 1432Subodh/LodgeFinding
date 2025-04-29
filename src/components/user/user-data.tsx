@@ -68,7 +68,7 @@ function UserData() {
                         <Button variant="ghost" className="relative w-9 h-9 rounded-full">
                             <Avatar className="w-9 h-9 ">
                                 <AvatarImage src="/placeholder-user.jpg" alt="User" />
-                                <AvatarFallback className="uppercase bg-[#14b8a57b] text-white">
+                                <AvatarFallback className="uppercase bg-primary text-white">
                                     {user?.firstname?.charAt(0)}
                                 </AvatarFallback>
                             </Avatar>

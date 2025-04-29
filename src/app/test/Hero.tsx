@@ -1,6 +1,7 @@
 "use client"; // Ensure this is added for Next.js
 import { useState, useEffect, useRef } from "react";
 import Header from "./Header";
+import HeroHeading from "./HeroHeading";
 
 // Define the type for lodge data
 interface Lodge {
@@ -22,18 +23,19 @@ export default function Hero() {
   const featuredLodges: Lodge[] = [
     {
       id: 1,
-      name: "Alpine Retreat",
-      location: "Aspen, Colorado",
-      videoUrl: "/video/01.mp4", // Replace with actual video paths
-      description: "Experience luxury in the heart of the mountains",
+      name: "Korrha Chowk",
+      location: "Hazaribagh",
+      videoUrl: "/video/01.mp4",
+      description: "Discover serene countryside charm blended with authentic local culture in the heart of Hazaribagh.",
     },
     {
       id: 2,
-      name: "Lakeside Haven",
-      location: "Lake Tahoe, Nevada",
+      name: "Zabra",
+      location: "Hazaribagh",
       videoUrl: "/video/02.mp4",
-      description: "Tranquil waterfront lodging with panoramic views",
-    },
+      description: "A peaceful escape surrounded by nature, offering a perfect blend of simplicity and scenic beauty.",
+    }
+    
     // {
     //   id: 3,
     //   name: "Forest Sanctuary",
@@ -154,9 +156,7 @@ export default function Hero() {
 
         {/* Hero Content */}
         <div className="relative h-[95%] sm:h-full flex flex-col items-center justify-center px-4 text-center text-white z-10">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
-            Find Your Perfect <span className="text-teal-400">Lodge</span>
-          </h1>
+          <HeroHeading/>
 
           <p className="text-xl md:text-2xl max-w-2xl mb-8 animate-fade-in-delay">
             {featuredLodges[currentVideo].description}
@@ -164,13 +164,13 @@ export default function Hero() {
 
           <div className="flex flex-col sm:flex-row gap-6 mb-16 animate-fade-in-delay-2">
             <button
-              className="px-8 py-3 bg-teal-500 hover:bg-teal-600 rounded-full text-lg font-semibold transition-colors duration-300"
+              className="px-8 py-3 bg-primary hover:bg-primary/90 rounded-full text-lg font-semibold transition-colors duration-300"
               onClick={scrollToPopular}
             >
-              Explore Popular Lodges
+              Explore Lodges
             </button>
             <button className="px-8 py-3 bg-transparent border-2 border-white hover:bg-white hover:text-black rounded-full text-lg font-semibold transition-all duration-300">
-              View Special Offers
+              Create Your Own Lodge
             </button>
           </div>
 
@@ -237,7 +237,7 @@ export default function Hero() {
                     onClick={() => setCurrentVideo(index)}
                     className={`w-3 h-3 rounded-full transition-all ${
                       currentVideo === index
-                        ? "bg-teal-400 w-6"
+                        ? "bg-primary w-6"
                         : "bg-white bg-opacity-50 hover:bg-opacity-80"
                     }`}
                     aria-label={`View lodge ${index + 1}`}
