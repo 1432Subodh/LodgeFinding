@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function HeroHeading() {
-  const places = ["Korrah", "Zabara", "Matwari", "Babugaon"];
+  const places = ["Korrah", "Zabra", "Matwari", "Babugaon"];
   const [currentPlace, setCurrentPlace] = useState("");
   const [placeIndex, setPlaceIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);

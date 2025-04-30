@@ -2,6 +2,9 @@
 import { useState, useEffect, useRef } from "react";
 import Header from "./Header";
 import HeroHeading from "./HeroHeading";
+import Preloader from "./Preloader";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 // Define the type for lodge data
 interface Lodge {
@@ -16,8 +19,13 @@ export default function Hero() {
   const [currentVideo, setCurrentVideo] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const navigate = (url:any) => {
+    // setIsLoading(true);
+    router.push(url);
+  };
 
   // Sample lodge data with videos
   const featuredLodges: Lodge[] = [
@@ -26,16 +34,18 @@ export default function Hero() {
       name: "Korrha Chowk",
       location: "Hazaribagh",
       videoUrl: "/video/01.mp4",
-      description: "Discover serene countryside charm blended with authentic local culture in the heart of Hazaribagh.",
+      description:
+        "Discover serene countryside charm blended with authentic local culture in the heart of Hazaribagh.",
     },
     {
       id: 2,
       name: "Zabra",
       location: "Hazaribagh",
       videoUrl: "/video/02.mp4",
-      description: "A peaceful escape surrounded by nature, offering a perfect blend of simplicity and scenic beauty.",
-    }
-    
+      description:
+        "A peaceful escape surrounded by nature, offering a perfect blend of simplicity and scenic beauty.",
+    },
+
     // {
     //   id: 3,
     //   name: "Forest Sanctuary",
@@ -156,19 +166,19 @@ export default function Hero() {
 
         {/* Hero Content */}
         <div className="relative h-[95%] sm:h-full flex flex-col items-center justify-center px-4 text-center text-white z-10">
-          <HeroHeading/>
+          <HeroHeading />
 
           <p className="text-xl md:text-2xl max-w-2xl mb-8 animate-fade-in-delay">
             {featuredLodges[currentVideo].description}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 mb-16 animate-fade-in-delay-2">
-            <button
-              className="px-8 py-3 bg-primary hover:bg-primary/90 rounded-full text-lg font-semibold transition-colors duration-300"
-              onClick={scrollToPopular}
-            >
-              Explore Lodges
-            </button>
+              <button
+                className="px-8 py-3 bg-primary hover:bg-primary/90 rounded-full text-lg font-semibold transition-colors duration-300"
+                onClick={() => navigate('/lodge')}
+              >
+                Explore Lodges
+              </button>
             <button className="px-8 py-3 bg-transparent border-2 border-white hover:bg-white hover:text-black rounded-full text-lg font-semibold transition-all duration-300">
               Create Your Own Lodge
             </button>
@@ -251,64 +261,7 @@ export default function Hero() {
         </div>
       </div>
       {/* Preloader */}
-      {isLoading && (
-        <div className="fixed inset-0 flex flex-col items-center justify-center bg-card z-50">
-          {/* Simple House Icon */}
-          <div className="relative mb-6">
-            <svg
-              className="w-16 h-16"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3 10.5V21h18V10.5L12 3L3 10.5Z"
-                stroke="#14b8a6"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                fill="none"
-              />
-            </svg>
-
-            {/* Subtle Scanning Line */}
-            <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-100 transform -translate-y-1/2">
-              <div className="w-full h-full bg-teal-500 animate-pulse opacity-60"></div>
-            </div>
-          </div>
-
-          {/* Minimal Text */}
-          <p className="text-card-foreground text-sm mb-6">
-            Finding your perfect lodge
-          </p>
-
-          {/* Clean Progress Bar */}
-          <div className="w-48 h-0.5 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-teal-500 rounded-full"
-              style={{
-                width: "60%",
-                animation: "progress 2s ease-in-out infinite",
-              }}
-            ></div>
-          </div>
-
-          {/* Add keyframes for progress animation */}
-          <style jsx>{`
-            @keyframes progress {
-              0% {
-                width: 0%;
-              }
-              50% {
-                width: 60%;
-              }
-              100% {
-                width: 0%;
-              }
-            }
-          `}</style>
-        </div>
-      )}
+      {isLoading && <Preloader />}
     </>
   );
 }
