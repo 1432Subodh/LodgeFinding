@@ -8,6 +8,9 @@ import type React from "react"
 import UserData from "../user/user-data"
 import SideBar from "./sidebar"
 import LodgeCardSection from "./lodge-card-section"
+import { usePreloader } from "../../../context/PreloaderContext"
+import { Suspense, useEffect } from "react"
+import Preloader from "@/app/test/Preloader"
 
 
 
@@ -16,11 +19,17 @@ import LodgeCardSection from "./lodge-card-section"
 
 
 export default function LodgeSection() {
+  const { setLoading } = usePreloader();
+  
+    useEffect(() => {
+     return setLoading(false); // Clean up by setting loading to false when the component unmounts
+    }, [])
 
 
 
   return (
-    <div className="flex h-screen  ">
+    <Suspense fallback={<Preloader/>}>
+       <div className="flex h-screen">
       {/* Sidebar for larger screens */}
       <div className="hidden w-64 border-r md:block dark:bg-[#0c0a09]">
         <SideBar />
@@ -66,6 +75,8 @@ export default function LodgeSection() {
         <LodgeCardSection/>
       </div>
     </div>
+    </Suspense>
+   
   )
 }
 

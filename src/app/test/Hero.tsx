@@ -1,10 +1,9 @@
 "use client"; // Ensure this is added for Next.js
 import { useState, useEffect, useRef } from "react";
-import Header from "./Header";
 import HeroHeading from "./HeroHeading";
 import Preloader from "./Preloader";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import ExploreButton from "../../../context/ExploreButton";
 
 // Define the type for lodge data
 interface Lodge {
@@ -19,13 +18,8 @@ export default function Hero() {
   const [currentVideo, setCurrentVideo] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  const navigate = (url:any) => {
-    // setIsLoading(true);
-    router.push(url);
-  };
 
   // Sample lodge data with videos
   const featuredLodges: Lodge[] = [
@@ -137,8 +131,8 @@ export default function Hero() {
 
   return (
     <>
+      {/* <Header /> */}
       <div className="relative h-screen w-full overflow-hidden snap-start">
-        <Header />
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full">
           {featuredLodges.map((lodge, index) => (
@@ -159,33 +153,34 @@ export default function Hero() {
                 playsInline
                 autoPlay
               />
-              <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+              <div className="absolute inset-0 bg-black  bg-opacity-50"></div>
             </div>
           ))}
         </div>
 
         {/* Hero Content */}
-        <div className="relative h-[95%] sm:h-full flex flex-col items-center justify-center px-4 text-center text-white z-10">
+        <div className="relative h-[95%] sm:h-full flex flex-col items-center justify-center px-4 text-center text-white z-9">
           <HeroHeading />
 
           <p className="text-xl md:text-2xl max-w-2xl mb-8 animate-fade-in-delay">
             {featuredLodges[currentVideo].description}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-6 mb-16 animate-fade-in-delay-2">
-              <button
-                className="px-8 py-3 bg-primary hover:bg-primary/90 rounded-full text-lg font-semibold transition-colors duration-300"
-                onClick={() => navigate('/lodge')}
-              >
+          <div className="flex flex-col sm:flex-row gap-6 mb-16 animate-fade-in-delay-2 ">
+            <ExploreButton href="/lodge">
+              <button className="px-8 py-3 bg-primary hover:bg-primary/90 rounded-full text-lg font-semibold transition-colors duration-300">
                 Explore Lodges
               </button>
-            <button className="px-8 py-3 bg-transparent border-2 border-white hover:bg-white hover:text-black rounded-full text-lg font-semibold transition-all duration-300">
-              Create Your Own Lodge
-            </button>
+            </ExploreButton>
+            <Link href={'/profile'}>
+              <button className="px-8 py-3 bg-transparent border-2 border-white hover:bg-white hover:text-black rounded-full text-lg font-semibold transition-all duration-300">
+                Create Your Own Lodge
+              </button>
+            </Link>
           </div>
 
           {/* Lodge Info & Video Controls */}
-          <div className="absolute bottom-10 left-0 right-0 flex flex-col md:flex-row items-center justify-between px-6 md:px-16">
+          <div className="absolute bottom-10 left-0 right-0 flex flex-col md:flex-row items-center justify-between px-6 md:px-16 z-9">
             <div className="mb-4 md:mb-0">
               <h2 className="text-2xl font-bold">
                 {featuredLodges[currentVideo].name}

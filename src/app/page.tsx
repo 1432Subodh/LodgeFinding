@@ -3,10 +3,10 @@ import { PopularLodges } from "@/components/popular-lodges"
 import { TestimonialSection } from "@/components/testimonial-section"
 import { CallToAction } from "@/components/call-to-action"
 import { Footer } from "@/components/footer"
-import { Header } from "@/components/header"
 import { Suspense } from "react"
 import Hero from "./test/Hero"
 import Head from "next/head"
+import Header from "./test/Header"
 
 export default function Home() {
   return (
@@ -21,8 +21,9 @@ export default function Home() {
     <Suspense fallback={<div className="flex items-center justify-center min-h-screen">
       <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
     </div>}>
-      <div className="min-h-screen">
-        {/* <Header /> */}
+      <div className="ralative min-h-screen">
+      <Header />
+
         <main>
           <Hero />
           

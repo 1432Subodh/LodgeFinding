@@ -8,7 +8,6 @@ import LodgeDetails from "@/components/(view)/LodgeDetails"
 import ReviewSection from "@/components/(view)/ReviewSection"
 import PopularLodges from "@/components/(view)/PopularLodges"
 import { Footer } from "@/components/footer"
-import { Header } from "@/components/header"
 import { useParams } from "next/navigation"
 import axios from "axios"
 import { Api_getLodge } from "../../../../../../helper/helper"
@@ -18,6 +17,8 @@ import { fetchLodgeDetails } from "@/redux/lodgeSlice"
 import { loadGetInitialProps } from "next/dist/shared/lib/utils"
 import toast from "react-hot-toast"
 import { Erica_One } from "next/font/google"
+import { usePreloader } from "../../../../../../context/PreloaderContext"
+import Header from "@/app/test/Header"
 
 
 export default function LodgePage() {
@@ -46,7 +47,7 @@ export default function LodgePage() {
     <>
 
       <Header />
-      <div className="mx-auto px-4 md:px-10 py-6">
+      <div className="mx-auto px-4 md:px-10 py-6 mt-20">
         <div className="grid gap-8 md:grid-cols-2">
           <LodgeGallery images={lodgeDetails.lodge?.images} />
           <LodgeDetails

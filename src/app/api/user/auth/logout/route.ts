@@ -12,7 +12,7 @@ export async function GET(request: NextRequest){
             success: true
         })
 
-        response.cookies.set('token', '')
+        response.cookies.delete('token')
         return response
         
     } catch (error:any) {

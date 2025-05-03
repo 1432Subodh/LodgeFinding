@@ -14,6 +14,7 @@ import { AppDispatch, RootState } from "@/redux/store";
 import { fetchUser } from "@/redux/userSlice";
 import axios from "axios";
 import { Skeleton } from "../ui/skeleton";
+import ExploreButton from "../../../context/ExploreButton";
 
 function UserData() {
     const [isLogin, setIsLogin] = useState(true);
@@ -55,11 +56,11 @@ function UserData() {
                 // <Skeleton className="h-[36px] w-[63px] " />
 
             ) : (
-                <Link href={"/login"}>
+                <ExploreButton href={"/login"}>
                     <Button variant={'default'} className="rounded-full px-6 py-4" size={"sm"}>
                         Login
                     </Button>
-                </Link>
+                </ExploreButton>
             );
         } else {
             return (

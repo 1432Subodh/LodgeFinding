@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import React from 'react'
+import ExploreButton from '../../context/ExploreButton'
 
 function LodgeImage() {
     return (
@@ -11,10 +12,10 @@ function LodgeImage() {
         //         {/* <span className="text-xl font-semibold sm:inline-block hidden">LodgeFinder</span> */}
         //       </Link>
         // </>
-        <Link href="/">
+        <ExploreButton href="/">
 
 
-            <div className='flex gap-1 font-bold md:text-xl sm:text-xl text-normal'>
+            <div className='flex gap-1 font-bold md:text-xl sm:text-xl text-normal cursor-pointer'>
                 {
                     ['L', 'O', 'D', 'G', 'E'].map((i, index) => (
                         <span key={index} className=''>{i}</span>
@@ -27,7 +28,7 @@ function LodgeImage() {
                     ))
                 }
             </div>
-        </Link>
+        </ExploreButton>
     )
 }
 

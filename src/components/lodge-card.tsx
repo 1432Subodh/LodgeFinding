@@ -8,6 +8,7 @@ import { Badge } from "./ui/badge";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { fetchLodgeDetails, removeLodgeDetails } from "@/redux/lodgeSlice";
+import ExploreButton from "../../context/ExploreButton";
 
 export function LodgeCard({
   name,
@@ -98,11 +99,11 @@ export function LodgeCard({
               <span className="text-sm sm:text-lg font-bold">₹{price}</span>
               <span className="text-xs sm:text-sm text-muted-foreground">/Month</span>
             </div>
-            <Link href={`/lodge/view/${id}`}>
+            <ExploreButton href={`/lodge/view/${id}`}>
               <Button size="sm" className="text-xs sm:text-sm" onClick={()=>dispatch(removeLodgeDetails())}>
                 View Now
               </Button>
-            </Link>
+            </ExploreButton>
           </div>
         </div>
       </div>

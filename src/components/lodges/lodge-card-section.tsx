@@ -8,12 +8,16 @@ import { LodgeCard, LodgeCardSkeleton } from '../lodge-card';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
+
+  
+
 function LodgeCardSection() {
     const dispatch = useDispatch<AppDispatch>();
     const [dataFetched, setDataFetched] = useState(false);
 
     const searchParams = useSearchParams()
     const search = searchParams.get('search')
+    
 
 
     // Select lodges, loading, and error state from Redux store

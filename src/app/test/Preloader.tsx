@@ -2,8 +2,8 @@ import React from "react";
 
 function Preloader() {
   return (
-    <div className="fixed inset-0 flex flex-col items-center justify-center bg-card z-50">
-      {/* Simple House Icon */}
+<div className="fixed inset-0 flex flex-col items-center justify-center bg-card z-[9999]">
+{/* Simple House Icon */}
       <div className="relative mb-6">
         <svg
           className="w-16 h-16"
@@ -23,7 +23,7 @@ function Preloader() {
 
         {/* Subtle Scanning Line */}
         <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-100 transform -translate-y-1/2">
-          <div className="w-full h-full bg-teal-500 animate-pulse opacity-60"></div>
+          <div className="w-full h-full bg-primary animate-pulse opacity-60"></div>
         </div>
       </div>
 
@@ -35,7 +35,7 @@ function Preloader() {
       {/* Clean Progress Bar */}
       <div className="w-48 h-0.5 rounded-full overflow-hidden">
         <div
-          className="h-full bg-teal-500 rounded-full"
+          className="h-full bg-primary rounded-full"
           style={{
             width: "60%",
             animation: "progress 2s ease-in-out infinite",

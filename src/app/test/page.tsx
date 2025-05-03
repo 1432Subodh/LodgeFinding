@@ -6,7 +6,6 @@ import PopularLodge from "./PopularLodge";
 import Header from "./Header";
 
 function Page() {
-  const [isLoading, setIsLoading] = useState(true);
 
   // useEffect(() => {
   //   // Fixed timeout to remove loader
@@ -27,15 +26,8 @@ function Page() {
         />
       </Head>
 
-      <main className="snap-y snap-mandatory h-screen overflow-y-scroll">
-      <Hero />
-      <div className="snap-start" id="popular-lodges">
-          <PopularLodge />
-        </div>
-        <div className="snap-start flex justify-center items-center w-full h-screen">
-          <h1>kaise ho</h1>
-        </div>
-      </main>
+      
+
 
       
     </>

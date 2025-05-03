@@ -12,9 +12,15 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Api_login } from "../../../../helper/helper";
+import ExploreButton from "../../../../context/ExploreButton";
+import Header from "@/app/test/Header";
 
 export default function SignIn() {
     const router = useRouter();
+
+      
+    
+    
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -48,8 +54,12 @@ export default function SignIn() {
         );
     };
 
+    
+
     return (
-        <form onSubmit={handleSubmit}>
+        <>
+        <Header/>
+        <form onSubmit={handleSubmit} className="mt-20">
             <PageTransition>
                 <AuthLayout
                     title="Welcome back"
@@ -114,14 +124,19 @@ export default function SignIn() {
                         </div>
                         <div className="text-center text-sm">
                             Don&apos;t have an account?{" "}
-                            <Link href="/signup" className="font-medium text-muted-foreground hover:text-zinc-600">
+                            <ExploreButton href="/signup">
+                            <button  className="font-medium text-muted-foreground hover:text-zinc-600">
+
                                 Sign up
-                            </Link>
+                            </button>
+                            </ExploreButton>
                         </div>
                     </motion.div>
                 </AuthLayout>
             </PageTransition>
         </form>
+        </>
+
     );
 }
 
