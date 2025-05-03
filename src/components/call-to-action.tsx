@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import ExploreButton from "../../context/ExploreButton"
 
 export function CallToAction() {
   return (
@@ -18,11 +19,11 @@ export function CallToAction() {
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Book your perfect lodge now and experience the beauty of nature combined with luxurious comfort.
           </p>
-          <Link href={'/lodge'}>
+          <ExploreButton href={'/lodge'}>
           <Button size="lg" variant="secondary">
             Find Your Lodge
           </Button>
-          </Link>
+          </ExploreButton>
         </motion.div>
       </div>
     </section>

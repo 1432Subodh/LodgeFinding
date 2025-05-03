@@ -21,6 +21,9 @@ import { usePreloader } from "../../../../../../context/PreloaderContext"
 import Header from "@/app/test/Header"
 
 
+
+
+
 export default function LodgePage() {
   const param = useParams()
   const id = param.id
