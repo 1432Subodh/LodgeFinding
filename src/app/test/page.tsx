@@ -1,37 +1,22 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import Head from "next/head";
-import Hero from "./Hero";
-import PopularLodge from "./PopularLodge";
-import Header from "./Header";
+'use client'
+import React from 'react'
 
-function Page() {
-
-  // useEffect(() => {
-  //   // Fixed timeout to remove loader
-  //   const timer = setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 3000); // 3 seconds
-
-  //   return () => clearTimeout(timer);
-  // }, []);
-
+function page() {
+  const handleSubmit = (e:any)=>{
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    const obj = Object.fromEntries(formData)
+    console.log(obj);
+  }
   return (
-    <>
-      <Head>
-        <title>Find Your Perfect Lodge | LodgeScape</title>
-        <meta
-          name="description"
-          content="Discover breathtaking lodges for your next getaway"
-        />
-      </Head>
-
-      
-
-
-      
-    </>
-  );
+    <div className='w-[100vw] h-[100vh] bg-black'>
+    <form action="" onSubmit={handleSubmit}>
+        <input type="text" name='username' />
+        <input type="email" name="email" id="" />
+        <input type="submit" value="submit" />
+    </form>
+    </div>
+  )
 }
 
-export default Page;
+export default page
