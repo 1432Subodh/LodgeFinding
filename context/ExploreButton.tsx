@@ -25,9 +25,6 @@ const ExploreButton: React.FC<ExploreButtonProps> = ({ href, children }) => {
     setLoading(true);
     setTimeout(() => {
       router.push(href);
-      if(param){
-        setLoading(false);
-      }
     }, 100); // Adjust delay as needed
   };
 
