@@ -5,6 +5,7 @@ const initialState = {
     lodges : [],
     lodgeDetails:[],
     populaLodgerNearby:[],
+    popularLodge:[],
     loading: true, 
     error: null
 }
@@ -33,6 +34,13 @@ export const fetchPopularLodgeNearby = createAsyncThunk('populaLodgerNearby', as
     // // console.log(res)
     return res.data
 })
+
+export const fetchPopularLodge = createAsyncThunk('popularLodge', async(_, { getState })=>{
+    const res = await axios.get('/api/lodge/popular')
+    // console.log(res)
+    return res.data
+})
+
 
 const lodgeSlice = createSlice({
     name:"lodge",
@@ -89,6 +97,16 @@ const lodgeSlice = createSlice({
         }).addCase(fetchSearchLodge.rejected,(state:any, action)=>{
             state.lodges = action.payload;
             state.loading= false;
+        })
+        .addCase(fetchPopularLodge.pending,(state:any, action)=>{
+            state.loading = true;
+        }).addCase(fetchPopularLodge.fulfilled,(state:any, action)=>{
+            state.popularLodge = action.payload.randomLodge;
+            console.log(action.payload)
+            state.loading = false;
+        }).addCase(fetchPopularLodge.rejected,(state:any, action)=>{
+            state.popularLodge = action.payload;
+            state.loading = false;
         })
     },
 })

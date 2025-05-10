@@ -1,5 +1,3 @@
-import { error } from "console"
-import { resolve } from "path"
 
 export const extractUser = '/api/user/auth/extractcookies'  //GET
 export const Api_logout = '/api/user/auth/logout' //GET

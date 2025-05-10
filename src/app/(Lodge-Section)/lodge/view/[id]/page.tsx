@@ -1,23 +1,16 @@
-import React from 'react'
-import ViewWarpper from './viewWarpper'
-
 import { Metadata } from 'next';
+import ViewWarpper from './viewWarpper';
 
-type Props = {
-  params: { id: string };
-};
+type PageProps = any;
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = params;
-  console.log(id)
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const id = params.id;
 
-  // Use full URL if fetching server-side from an API
   const res = await fetch(`${process.env.DOMAIN}api/lodge/get`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ id }),
-    // Ensure it doesn't cache (optional, for dynamic data)
-    cache: 'no-store'
+    cache: 'no-store',
   });
 
   const data = await res.json();
@@ -33,11 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-
-function page() {
-  return (
-    <ViewWarpper/>
-  )
+function Page() {
+  return <ViewWarpper />;
 }
 
-export default page
+export default Page;
