@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-function Page({ params }: PageProps) {
+function Page() {
   return <ViewWarpper />;
 }
 
