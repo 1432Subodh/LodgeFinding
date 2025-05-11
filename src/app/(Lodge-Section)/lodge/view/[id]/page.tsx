@@ -1,11 +1,10 @@
 import { Metadata } from 'next';
 import ViewWarpper from './viewWarpper';
 
-type PageProps = any;
+type PageProps = any
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const id = params.id;
-
+ const { id } = await params
   const res = await fetch(`${process.env.DOMAIN}api/lodge/get`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -26,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-function Page() {
+function Page({ params }: PageProps) {
   return <ViewWarpper />;
 }
 
