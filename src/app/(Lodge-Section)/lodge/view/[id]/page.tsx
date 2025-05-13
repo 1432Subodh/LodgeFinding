@@ -1,11 +1,12 @@
 import { Metadata } from 'next';
 import ViewWarpper from './viewWarpper';
 
-type PageProps = any
+export const dynamic = 'force-dynamic'; // ✅ Ensures SSR for dynamic pages
+
+type PageProps = any;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { id } = await params;
-  console
+  const { id } = params;
 
   let data: any = {};
   try {
@@ -13,7 +14,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id }),
-      cache: 'no-store',
+      cache: 'no-store', // ✅ No caching for fresh data
     });
 
     if (!res.ok) {
