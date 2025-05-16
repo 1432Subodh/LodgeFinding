@@ -10,7 +10,7 @@ interface Lodge {
   id: number;
   name: string;
   location: string;
-  videoUrl: string;
+  videoUrl: string; 
   description: string;
 }
 
